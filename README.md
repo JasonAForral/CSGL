@@ -30,3 +30,7 @@ glfwMakeContextCurrent( window );
  glLoad();
  ```
  You can now use OpenGL!
+
+# GLFW
+The GLFW GitGub repository can be found [here](https://github.com/glfw/glfw).  
+The GLFW website can be found [here](http://www.glfw.org/).
