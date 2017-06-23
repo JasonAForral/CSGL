@@ -53,6 +53,14 @@ namespace CSGL
 
             return true;
         }
+
+        public static void glAssert()
+        {
+            uint glError = glGetError();
+
+            if ( glError != GL_NO_ERROR )
+                throw new Exception( "OpenGL error (" + glError + ")" );
+        }
         #endregion
 
         // Comment out starting at the OpenGL version above the one you would like to use
@@ -1006,14 +1014,6 @@ namespace CSGL
         #endregion
 
         #region Methods
-        public static void glAssert()
-        {
-            uint glError = glGetError();
-
-            if ( glError != GL_NO_ERROR )
-                throw new Exception( "OpenGL error (" + glError + ")" );
-        }
-
 		 public static PFNGLACCUMPROC glAccum;
 		 public static PFNGLALPHAFUNCPROC glAlphaFunc;
 		 public static PFNGLARETEXTURESRESIDENTPROC glAreTexturesResident;
