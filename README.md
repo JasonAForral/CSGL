@@ -31,6 +31,11 @@ glfwMakeContextCurrent( window );
  ```
  You can now use OpenGL!
 
+### Cross-platform
+CSGL can be ran under Mono, this can be achieved by:
+ - Renaming `private const string _lib` in `Glfw3.cs`, to for example `libglfw.so.3`.
+ - Or making use of [DllMaps](http://www.mono-project.com/docs/advanced/pinvoke/dllmap/).
+
 # GLFW
 The GLFW GitGub repository can be found [here](https://github.com/glfw/glfw).  
 The GLFW website can be found [here](http://www.glfw.org/).
