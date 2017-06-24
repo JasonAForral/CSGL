@@ -526,26 +526,6 @@ namespace CSGL
 
     public static class OpenGL
     {
-        #region CSGL
-        private static Type _glType = typeof( OpenGL );
-        private static Type _delegateType = typeof( MulticastDelegate );
-
-        public static bool glLoad()
-        {
-            FieldInfo[] fields = _glType.GetFields( BindingFlags.Public | BindingFlags.Static );
-
-            foreach ( FieldInfo fi in fields )
-            {
-                if ( fi.FieldType.BaseType == _delegateType )
-                {
-                    fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( Glfw3.glfwGetProcAddress( fi.Name ), fi.FieldType ) );
-                }
-            }
-
-            return true;
-        }
-        #endregion
-
         // Comment out starting at the OpenGL version above the one you would like to use
 
         #region OpenGL 1.0 + OpenGL 1.1
@@ -1497,14 +1477,6 @@ namespace CSGL
         #endregion
 
         #region Methods
-        public static void glAssert()
-        {
-            uint glError = glGetError();
-
-            if ( glError != GL_NO_ERROR )
-                throw new Exception( "OpenGL error (" + glError + ")" );
-        }
-
         public static PFNGLACCUMPROC glAccum;
         public static PFNGLALPHAFUNCPROC glAlphaFunc;
         public static PFNGLARETEXTURESRESIDENTPROC glAreTexturesResident;
@@ -4360,6 +4332,34 @@ namespace CSGL
     {
         #region Fields
         private static IntPtr NULL = (IntPtr)0;
+
+        private static Type _glType = typeof( OpenGL );
+        private static Type _delegateType = typeof( MulticastDelegate );
+        #endregion
+
+        #region Methods
+        public static bool csglLoad()
+        {
+            FieldInfo[] fields = _glType.GetFields( BindingFlags.Public | BindingFlags.Static );
+
+            foreach ( FieldInfo fi in fields )
+            {
+                if ( fi.FieldType.BaseType == _delegateType )
+                {
+                    fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( Glfw3.glfwGetProcAddress( fi.Name ), fi.FieldType ) );
+                }
+            }
+
+            return true;
+        }
+
+        public static void csglAssert()
+        {
+            uint glError = glGetError();
+
+            if ( glError != GL_NO_ERROR )
+                throw new Exception( "OpenGL error (" + glError + ")" );
+        }
         #endregion
 
         #region Macros

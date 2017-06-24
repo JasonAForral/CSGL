@@ -11,8 +11,9 @@ CSGL provides a P/Invoke wrapper for GLFW3 as well, as it uses it internally to 
 ### Usage
  - (Optional) Add using directives:
 ```csharp
-using static CSGL.Glfw3;
-using static CSGL.OpenGL;
+using static CSGL;        // csgl*
+using static CSGL.Glfw3;  // glfw*
+using static CSGL.OpenGL; // gl*
 ```  
 `using static` requires **C#6** or higher.
  - Create an OpenGL context:
@@ -26,10 +27,10 @@ IntPtr window = glfwCreateWindow( 640, 480, "CSGL Window", IntPtr.Zero, IntPtr.Z
 glfwMakeContextCurrent( window );
 ```  
   - Load OpenGL:  
- ```csharp
- glLoad();
- ```
- You can now use OpenGL!
+```csharp
+csglLoad();
+```
+You can now use OpenGL!
 
 ### Cross-platform
 CSGL can be ran under Mono, this can be achieved by:
