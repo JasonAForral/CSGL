@@ -1267,7 +1267,7 @@ namespace CSGL
         public delegate void PFNGLGETPIXELMAPFVPROC( uint map, float[] values );
         public delegate void PFNGLGETPIXELMAPUIVPROC( uint map, uint[] values );
         public delegate void PFNGLGETPIXELMAPUSVPROC( uint map, ushort[] values );
-        public delegate void PFNGLGETPOINTERVPROC( uint pname, IntPtr[] parameters );
+        public delegate void PFNGLGETPOINTERVPROC( uint pname, ref IntPtr parameters );
         public delegate void PFNGLGETPOLYGONSTIPPLEPROC( IntPtr mask );
         public delegate void PFNGLGETTEXENVFVPROC( uint target, uint pname, float[] parameters );
         public delegate void PFNGLGETTEXENVIVPROC( uint target, uint pname, int[] parameters );
@@ -2087,7 +2087,7 @@ namespace CSGL
         public delegate IntPtr PFNGLMAPBUFFERPROC( uint target, uint access );
         public delegate byte PFNGLUNMAPBUFFERPROC( uint target );
         public delegate void PFNGLGETBUFFERPARAMETERIVPROC( uint target, uint pname, ref int parameters );
-        public delegate void PFNGLGETBUFFERPOINTERVPROC( uint target, uint pname, IntPtr parameters );
+        public delegate void PFNGLGETBUFFERPOINTERVPROC( uint target, uint pname, ref IntPtr parameters );
         #endregion
 
         #region Methods
@@ -2228,11 +2228,11 @@ namespace CSGL
         public delegate void PFNGLGETVERTEXATTRIBDVPROC( uint index, uint pname, ref double parameters );
         public delegate void PFNGLGETVERTEXATTRIBFVPROC( uint index, uint pname, ref float parameters );
         public delegate void PFNGLGETVERTEXATTRIBIVPROC( uint index, uint pname, ref int parameters );
-        public delegate void PFNGLGETVERTEXATTRIBPOINTERVPROC( uint index, uint pname, IntPtr pointer );
+        public delegate void PFNGLGETVERTEXATTRIBPOINTERVPROC( uint index, uint pname, ref IntPtr pointer );
         public delegate byte PFNGLISPROGRAMPROC( uint program );
         public delegate byte PFNGLISSHADERPROC( uint shader );
         public delegate void PFNGLLINKPROGRAMPROC( uint program );
-        public delegate void PFNGLSHADERSOURCEPROC( uint shader, int count, IntPtr str, ref int length );
+        public delegate void PFNGLSHADERSOURCEPROC( uint shader, int count, ref IntPtr str, ref int length );
         public delegate void PFNGLUSEPROGRAMPROC( uint program );
         public delegate void PFNGLUNIFORM1FPROC( int location, float v0 );
         public delegate void PFNGLUNIFORM2FPROC( int location, float v0, float v1 );
@@ -4135,7 +4135,7 @@ namespace CSGL
         public delegate void PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC( uint buffer, int offset, int length );
         public delegate void PFNGLGETNAMEDBUFFERPARAMETERIVPROC( uint buffer, uint pname, ref int parameters );
         public delegate void PFNGLGETNAMEDBUFFERPARAMETERI64VPROC( uint buffer, uint pname, ref int parameters );
-        public delegate void PFNGLGETNAMEDBUFFERPOINTERVPROC( uint buffer, uint pname, IntPtr parameters );
+        public delegate void PFNGLGETNAMEDBUFFERPOINTERVPROC( uint buffer, uint pname, ref IntPtr parameters );
         public delegate void PFNGLGETNAMEDBUFFERSUBDATAPROC( uint buffer, int offset, int size, IntPtr data );
         public delegate void PFNGLCREATEFRAMEBUFFERSPROC( int n, ref uint framebuffers );
         public delegate void PFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC( uint framebuffer, uint attachment, uint renderbuffertarget, uint renderbuffer );
