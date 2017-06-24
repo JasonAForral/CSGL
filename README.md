@@ -3,9 +3,9 @@ CSGL was created to provide a simple, low-level OpenGL loader for the OpenGL 1.0
 CSGL provides a P/Invoke wrapper for GLFW3 as well, as it uses it internally to fetch the process addresses.  
 
 ### Setup
- - Add `OpenGL.cs` and `Glfw3.cs` to your project.
+ - Add `CSGL.cs` to your project.
  - Skip ahead to `Usage` if you would like to use **OpenGL 4.5**.
- - Open up `OpenGL.cs` and start a multiline comment at **the version one above** the OpenGL version you would like to use.
+ - Open up `CSGL.cs` and start a multiline comment at **the version one above** the OpenGL version you would like to use.
  - End the multiline comment at the end (under the OpenGL 4.5 region).  
   
 ### Usage
@@ -33,7 +33,7 @@ glfwMakeContextCurrent( window );
 
 ### Cross-platform
 CSGL can be ran under Mono, this can be achieved by:
- - Renaming `private const string _lib` in `Glfw3.cs`, to for example `libglfw.so.3`.
+ - Renaming `private const string _lib` in `CSGL.cs`, to for example `libglfw.so.3`.
  - Or making use of [DllMaps](http://www.mono-project.com/docs/advanced/pinvoke/dllmap/).
 
 # GLFW
