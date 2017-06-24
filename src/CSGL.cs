@@ -27,10 +27,15 @@
 */
 #endregion
 
+#region Include
 using System;
+using System.IO;
+using System.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
+#endregion
 
+#region Implementation
 namespace CSGL
 {
     public static class Glfw3
@@ -600,8 +605,8 @@ namespace CSGL
         public const uint GL_DST_COLOR = 774;
         public const uint GL_ONE_MINUS_DST_COLOR = 775;
         public const uint GL_SRC_ALPHA_SATURATE = 776;
-        public const uint GL_TRUE = 1;
-        public const uint GL_FALSE = 0;
+        public const byte GL_TRUE = 1;
+        public const byte GL_FALSE = 0;
         public const uint GL_CLIP_PLANE0 = 12288;
         public const uint GL_CLIP_PLANE1 = 12289;
         public const uint GL_CLIP_PLANE2 = 12290;
@@ -4341,5 +4346,204 @@ namespace CSGL
         #endregion
         #endregion
     }
-
 }
+#endregion
+
+#region Abstraction
+namespace CSGL
+{
+    using static OpenGL;
+
+    public static class CSGL
+    {
+        #region csglBuffer
+        public static uint csglBuffer( float[] data, uint usage = GL_STATIC_DRAW )
+        {
+            uint VBO = 0;
+
+            glGenBuffers( 1, ref VBO );
+            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * data.Length, (IntPtr)ptrData, usage );
+            }
+
+            return VBO;
+        }
+
+        public static uint csglBuffer( double[] data, uint usage = GL_STATIC_DRAW )
+        {
+            uint VBO = 0;
+
+            glGenBuffers( 1, ref VBO );
+            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( double ) * data.Length, (IntPtr)ptrData, usage );
+            }
+
+            return VBO;
+        }
+
+        public static uint csglBuffer( int[] data, uint usage = GL_STATIC_DRAW )
+        {
+            uint VBO = 0;
+
+            glGenBuffers( 1, ref VBO );
+            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( int ) * data.Length, (IntPtr)ptrData, usage );
+            }
+
+            return VBO;
+        }
+
+        public static uint csglBuffer( long[] data, uint usage = GL_STATIC_DRAW )
+        {
+            uint VBO = 0;
+
+            glGenBuffers( 1, ref VBO );
+            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( long ) * data.Length, (IntPtr)ptrData, usage );
+            }
+
+            return VBO;
+        }
+
+        public static uint csglBuffer( byte[] data, uint usage = GL_STATIC_DRAW )
+        {
+            uint VBO = 0;
+
+            glGenBuffers( 1, ref VBO );
+            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( byte ) * data.Length, (IntPtr)ptrData, usage );
+            }
+
+            return VBO;
+        }
+
+        public static uint csglBuffer( char[] data, uint usage = GL_STATIC_DRAW )
+        {
+            uint VBO = 0;
+
+            glGenBuffers( 1, ref VBO );
+            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( char ) * data.Length, (IntPtr)ptrData, usage );
+            }
+
+            return VBO;
+        }
+        #endregion
+
+        #region csglShader
+        public static uint csglShader( IntPtr shaderSource, uint type )
+        {
+            #region Compile
+            uint shader = glCreateShader( type );
+            int length = 0;
+
+            glShaderSource( shader, 1, ref shaderSource, ref length );
+            glCompileShader( shader );
+            #endregion
+
+            #region Assert
+            int success = 0;
+            glGetShaderiv( shader, GL_COMPILE_STATUS, ref success );
+
+            if ( success == 0 )
+            {
+                IntPtr log = Marshal.AllocHGlobal( 512 );
+                glGetShaderInfoLog( shader, 512, ref length, log );
+
+                byte[] buffer = new byte[ length ];
+                Marshal.Copy( log, buffer, 0, length );
+                Marshal.FreeHGlobal( log );
+
+                throw new Exception( System.Text.Encoding.ASCII.GetString( buffer ) );
+            }
+            #endregion
+
+            return shader;
+        }
+
+        public static uint csglShader( byte[] shaderSource, uint type )
+        {
+            IntPtr ptrSource = Marshal.AllocHGlobal( shaderSource.Length );
+            Marshal.Copy( shaderSource, 0, ptrSource, shaderSource.Length );
+
+            uint shader = csglShader( ptrSource, type );
+
+            Marshal.FreeHGlobal( ptrSource );
+
+            return shader;
+        }
+
+        public static uint csglShader( string shaderSource, uint type )
+        {
+            return csglShader( Encoding.ASCII.GetBytes( shaderSource ), type );
+        }
+
+        public static uint csglShaderFile( string filename, uint type )
+        {
+            return csglShader( File.ReadAllBytes( filename ), type );
+        }
+
+        public static uint csglShaderProgram( params uint[] shaders )
+        {
+            #region Link
+            uint shaderProgram = glCreateProgram();
+
+            foreach ( uint shader in shaders )
+                glAttachShader( shaderProgram, shader );
+
+            glLinkProgram( shaderProgram );
+            #endregion
+
+            #region Assert
+            int success = 0;
+            glGetProgramiv( shaderProgram, GL_LINK_STATUS, ref success );
+
+            if ( success == 0 )
+            {
+                int length = 0;
+                IntPtr log = Marshal.AllocHGlobal( 512 );
+                glGetProgramInfoLog( shaderProgram, 512, ref length, log );
+
+                byte[] buffer = new byte[ length ];
+                Marshal.Copy( log, buffer, 0, length );
+                Marshal.FreeHGlobal( log );
+
+                throw new Exception( System.Text.Encoding.ASCII.GetString( buffer ) );
+            }
+            #endregion
+
+            #region Clean
+            foreach ( uint shader in shaders )
+                glDeleteShader( shader );
+            #endregion
+
+            return shaderProgram;
+        }
+        #endregion
+    }
+}
+#endregion
