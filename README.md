@@ -40,7 +40,7 @@ CSGL provides minimal-overhead abstraction:
 
 CSGL provides several optimized macros as well.  
   
-Some optimized methods require an `unsafe` context, compile with `UNSAFE` symbol to enable these methods, otherwise safe (often slower) alternatives will be used.
+Some optimized methods **require** an `unsafe` context, compile with `UNSAFE` symbol to enable these methods, otherwise safe (often slower) alternatives will be used.
 
 ### Cross-platform
 CSGL can be ran under Mono, this can be achieved by:
