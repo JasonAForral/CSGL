@@ -32,6 +32,14 @@ csglLoad();
 ```
 You can now use OpenGL!
 
+### Abstraction
+CSGL provides minimal-overhead abstraction:
+- `CSGLWindow` is an abstraction over GLFW windows.
+- `CSGLSprite` is a 2D-sprite "object".
+- `CSGLShader` is an abstracted vertex+fragment shader program.
+
+CSGL provides several optimized macros as well.
+
 ### Cross-platform
 CSGL can be ran under Mono, this can be achieved by:
  - Renaming `private const string _lib` in `CSGL.cs`, to for example `libglfw.so.3`.
