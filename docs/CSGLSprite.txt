@@ -1,0 +1,19 @@
+Creation:
+
+----------
+
+CSGLSprite = new CSGLSprite( float width, float height, uint texture )
+width:		desired sprite width
+height:		desired sprite height
+texture:	texture to bind to
+
+----------
+
+
+
+Usage:
+
+----------
+
+void CSGLSprite.Draw( void )
+Draws the current sprite; use matrix transformations to change size/location.
