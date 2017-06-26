@@ -31,6 +31,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -530,7 +531,6 @@ namespace CSGL
 
         #region OpenGL 1.0 + OpenGL 1.1
         #region Constants
-        public const uint GL_VERSION_1_1 = 1;
         public const uint GL_ACCUM = 256;
         public const uint GL_LOAD = 257;
         public const uint GL_RETURN = 258;
@@ -1236,7 +1236,7 @@ namespace CSGL
         public delegate void PFNGLFRONTFACEPROC( uint mode );
         public delegate void PFNGLFRUSTUMPROC( double left, double right, double bottom, double top, double zNear, double zFar );
         public delegate uint PFNGLGENLISTSPROC( int range );
-        public delegate void PFNGLGENTEXTURESPROC( int n, uint[] textures );
+        public delegate void PFNGLGENTEXTURESPROC( int n, ref uint textures );
         public delegate void PFNGLGETBOOLEANVPROC( uint pname, IntPtr parameters );
         public delegate void PFNGLGETCLIPPLANEPROC( uint plane, double[] equation );
         public delegate void PFNGLGETDOUBLEVPROC( uint pname, double[] parameters );
@@ -4326,10 +4326,50 @@ namespace CSGL
 namespace CSGL
 {
     using static OpenGL;
+    using static Glfw3;
     using static CSGL;
+
+    #region Prototypes
+    public struct CSGLVertex
+    {
+        public float X;
+        public float Y;
+        public float R;
+        public float G;
+        public float B;
+        public float A;
+        public float U;
+        public float V;
+
+        public CSGLVertex( float x, float y, float r, float g, float b, float a, float u, float v )
+        {
+            X = x;
+            Y = y;
+            R = r;
+            G = g;
+            B = b;
+            A = a;
+            U = u;
+            V = v;
+        }
+    }
+
+    public enum CSGLWindowStyle : int
+    {
+        Normal = 1,
+        Borderless = 2,
+        Fullscreen = 4
+    }
+
+    #region Delegates
+    public delegate void CSGLDrawEvent( CSGLWindow sender, double deltaTime );
+    public delegate void CSGLUpdateEvent( CSGLWindow sender, double deltaTime );
+    #endregion
+    #endregion
 
     public static class CSGL
     {
+        #region Extension
         #region Fields
         private static IntPtr NULL = (IntPtr)0;
 
@@ -4364,114 +4404,112 @@ namespace CSGL
 
         #region Macros
         #region csglBuffer
-        public static uint csglBuffer( float[] data, uint vbo = 0, uint usage = GL_STATIC_DRAW )
+        public static uint csglBuffer( float[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
         {
-            uint VBO = vbo;
+            uint BUFF = buffer;
 
-            if( VBO == 0 )
-                glGenBuffers( 1, ref VBO );
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
 
-            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+            glBindBuffer( target, BUFF );
 
             unsafe
             {
                 fixed ( void* ptrData = data )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * data.Length, (IntPtr)ptrData, usage );
+                    glBufferData( target, sizeof( float ) * data.Length, (IntPtr)ptrData, usage );
             }
 
-            return VBO;
+            return BUFF;
         }
 
-        public static uint csglBuffer( double[] data, uint vbo = 0, uint usage = GL_STATIC_DRAW )
+        public static uint csglBuffer( CSGLVertex[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
         {
-            uint VBO = vbo;
+            uint BUFF = buffer;
 
-            if ( VBO == 0 )
-                glGenBuffers( 1, ref VBO );
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
 
-            glGenBuffers( 1, ref VBO );
-            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+            glBindBuffer( target, BUFF );
 
             unsafe
             {
                 fixed ( void* ptrData = data )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( double ) * data.Length, (IntPtr)ptrData, usage );
+                    glBufferData( target, sizeof( CSGLVertex ) * data.Length, (IntPtr)ptrData, usage );
             }
 
-            return VBO;
+            return BUFF;
         }
 
-        public static uint csglBuffer( int[] data, uint vbo = 0, uint usage = GL_STATIC_DRAW )
+        public static uint csglBuffer( double[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
         {
-            uint VBO = vbo;
+            uint BUFF = buffer;
 
-            if ( VBO == 0 )
-                glGenBuffers( 1, ref VBO );
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
 
-            glGenBuffers( 1, ref VBO );
-            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+            glBindBuffer( target, BUFF );
 
             unsafe
             {
                 fixed ( void* ptrData = data )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( int ) * data.Length, (IntPtr)ptrData, usage );
+                    glBufferData( target, sizeof( double ) * data.Length, (IntPtr)ptrData, usage );
             }
 
-            return VBO;
+            return BUFF;
         }
 
-        public static uint csglBuffer( long[] data, uint vbo = 0, uint usage = GL_STATIC_DRAW )
+        public static uint csglBuffer( uint[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
         {
-            uint VBO = 0;
+            uint BUFF = buffer;
 
-            glGenBuffers( 1, ref VBO );
-            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
 
             unsafe
             {
                 fixed ( void* ptrData = data )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( long ) * data.Length, (IntPtr)ptrData, usage );
+                    glBufferData( target, sizeof( uint ) * data.Length, (IntPtr)ptrData, usage );
             }
 
-            return VBO;
+            return BUFF;
         }
 
-        public static uint csglBuffer( byte[] data, uint vbo = 0, uint usage = GL_STATIC_DRAW )
+        public static uint csglBuffer( int[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
         {
-            uint VBO = vbo;
+            uint BUFF = buffer;
 
-            if ( VBO == 0 )
-                glGenBuffers( 1, ref VBO );
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
 
-            glGenBuffers( 1, ref VBO );
-            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+            glBindBuffer( target, BUFF );
 
             unsafe
             {
                 fixed ( void* ptrData = data )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( byte ) * data.Length, (IntPtr)ptrData, usage );
+                    glBufferData( target, sizeof( int ) * data.Length, (IntPtr)ptrData, usage );
             }
 
-            return VBO;
+            return BUFF;
         }
 
-        public static uint csglBuffer( char[] data, uint vbo = 0, uint usage = GL_STATIC_DRAW )
+        public static uint csglBuffer( byte[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
         {
-            uint VBO = vbo;
+            uint BUFF = buffer;
 
-            if ( VBO == 0 )
-                glGenBuffers( 1, ref VBO );
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
 
-            glGenBuffers( 1, ref VBO );
-            glBindBuffer( GL_ARRAY_BUFFER, VBO );
+            glBindBuffer( target, BUFF );
 
             unsafe
             {
                 fixed ( void* ptrData = data )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( char ) * data.Length, (IntPtr)ptrData, usage );
+                    glBufferData( target, sizeof( byte ) * data.Length, (IntPtr)ptrData, usage );
             }
 
-            return VBO;
+            return BUFF;
         }
         #endregion
 
@@ -4579,6 +4617,421 @@ namespace CSGL
             glVertexAttribPointer( index, size, type, GL_FALSE, stride, NULL + offset );
         }
         #endregion
+
+        #region csglTexture
+        private static Stack<uint> _availTexPtrs = new Stack<uint>();
+
+        public static uint csglTexture( int width, int height, IntPtr pixels, uint externalFormat = GL_RGBA )
+        {
+            uint texture = 0;
+
+            if ( _availTexPtrs.Count > 0 )
+                texture = _availTexPtrs.Pop();
+            else
+                glGenTextures( 1, ref texture );
+
+            glBindTexture( GL_TEXTURE_2D, texture );
+
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (int)GL_REPEAT );
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (int)GL_REPEAT );
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (int)GL_LINEAR );
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (int)GL_NEAREST );
+
+            glTexImage2D( GL_TEXTURE_2D, 0, (int)GL_RGBA, width, height, 0, externalFormat, GL_UNSIGNED_BYTE, pixels );
+            csglAssert();
+
+            return texture;
+        }
+
+        public static void csglTextureClear( uint texture )
+        {
+            _availTexPtrs.Push( texture );
+        }
+        #endregion
+
+        #region csglClone
+        public static byte[] csglClone( byte[] from )
+        {
+            byte[] result = new byte[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length );
+
+            return result;
+        }
+
+        public static ushort[] csglClone( ushort[] from )
+        {
+            ushort[] result = new ushort[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( ushort ) );
+
+            return result;
+        }
+
+        public static short[] csglClone( short[] from )
+        {
+            short[] result = new short[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( short ) );
+
+            return result;
+        }
+
+        public static uint[] csglClone( uint[] from )
+        {
+            uint[] result = new uint[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( uint ) );
+
+            return result;
+        }
+
+        public static int[] csglClone( int[] from )
+        {
+            int[] result = new int[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( int ) );
+
+            return result;
+        }
+
+        public static ulong[] csglClone( ulong[] from )
+        {
+            ulong[] result = new ulong[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( ulong ) );
+
+            return result;
+        }
+
+        public static long[] csglClone( long[] from )
+        {
+            long[] result = new long[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( long ) );
+
+            return result;
+        }
+
+        public static float[] csglClone( float[] from )
+        {
+            float[] result = new float[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( float ) );
+            
+            return result;
+        }
+
+        public static double[] csglClone( double[] from )
+        {
+            double[] result = new double[ from.Length ];
+            Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( double ) );
+
+            return result;
+        }
+
+        public static void csglClone( byte[] from, byte[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length );
+        }
+
+        public static void csglClone( ushort[] from, ushort[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( ushort ) );
+        }
+
+        public static void csglClone( short[] from, short[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( short ) );
+        }
+
+        public static void csglClone( uint[] from, uint[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( uint ) );
+        }
+
+        public static void csglClone( int[] from, int[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( int ) );
+        }
+
+        public static void csglClone( ulong[] from, ulong[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( ulong ) );
+        }
+
+        public static void csglClone( long[] from, long[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( long ) );
+        }
+
+        public static void csglClone( float[] from, float[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( float ) );
+        }
+
+        public static void csglClone( double[] from, double[] to )
+        {
+            Buffer.BlockCopy( from, 0, to, 0, to.Length * sizeof( double ) );
+        }
+        #endregion
+        #endregion
+        #endregion
+
+        #region Math
+        #region Unsafe
+#if UNSAFE
+        public static float csglFastSqrt( float value )
+        {
+            float result = value;
+
+            unsafe
+            {
+                int tmp = *(int*)&result;
+
+                tmp -= 1 << 23;
+                tmp >>= 1;
+                tmp += 1 << 29;
+
+                result = *(float*)&tmp;
+            }
+            return result;
+        }
+
+        public static float csglFastInvSqrt( float value )
+        {
+            float x = value;
+
+            unsafe
+            {
+                float xhalf = 0.5f*x;
+
+                int i = *(int*)&x;
+                i = 0x5f3759df - ( i >> 1 );
+                x = *(float*)&i;
+                x = x * ( 1.5f - xhalf * x * x );
+            }
+
+            return x;
+        }
+#endif
+        #endregion
+
+        #region Safe
+#if !UNSAFE
+        public static float csglFastSqrt( float value ) { return (float)Math.Sqrt( value ); }
+
+        public static float csglFastInvSqrt( float value ) { return (float)( 1.0 / Math.Sqrt( value ) ); }
+#endif
+        #endregion
+
+        #region Vector
+        #region Vector scalar
+        public static void csglVectorAdd( float[] vector, float value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] += value;
+        }
+
+        public static void csglVectorSub( float[] vector, float value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] -= value;
+        }
+
+        public static void csglVectorMul( float[] vector, float value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] *= value;
+        }
+
+        public static void csglVectorDiv( float[] vector, float value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] /= value;
+        }
+        #endregion
+
+        #region Vector vector
+        public static void csglVectorAdd( float[] vector, float[] value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] += value[ i ];
+        }
+
+        public static void csglVectorSub( float[] vector, float[] value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] -= value[ i ];
+        }
+
+        public static void csglVectorMul( float[] vector, float[] value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] *= value[ i ];
+        }
+
+        public static void csglVectorDiv( float[] vector, float[] value )
+        {
+            for ( int i = 0; i < vector.Length; i++ )
+                vector[ i ] /= value[ i ];
+        }
+        #endregion
+
+        #region Vector misc
+        public static float csglVectorLength( float[] vector )
+        {
+            float pow = 0;
+
+            for ( int i = 0; i < vector.Length; i++ )
+                pow += vector[ i ] * vector[ i ];
+
+            return csglFastSqrt( pow );
+        }
+
+        public static float csglVectorDot( float[] v1, float[] v2 )
+        {
+            float dot = 0;
+            int min = v1.Length < v2.Length ? v1.Length : v2.Length;
+
+            for ( int i = 0; i < min; i++ )
+                dot += v1[ i ] * v2[ i ];
+
+            return dot;
+        }
+
+        public static float[] csglVector3Cross( float[] v1, float[] v2 )
+        {
+            return new float[ 3 ]
+            {
+                v1[ 1 ] * v2[ 2 ] - v1[ 2 ] * v2[ 1 ],
+                v1[ 2 ] * v2[ 0 ] - v1[ 0 ] * v2[ 2 ],
+                v1[ 0 ] * v2[ 1 ] - v1[ 1 ] * v2[ 0 ]
+            };
+        }
+        #endregion
+        #endregion
+
+        #region Matrix
+        #region Identity
+        public static float[] csglIdentity2()
+        {
+            return new float[ 4 ]
+            {
+                1, 0,
+                0, 1
+            };
+        }
+
+        public static float[] csglIdentity3()
+        {
+            return new float[ 9 ]
+            {
+                1, 0, 0,
+                0, 1, 0,
+                0, 0, 1
+            };
+        }
+
+        public static float[] csglIdentity4()
+        {
+            return new float[ 16 ]
+            {
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1
+            };
+        }
+        #endregion
+
+        #region Matrix scalar
+        // Vector scalar rules apply
+        #endregion
+
+        #region Matrix matrix
+        public static float[] csglMatrixMul( float[] m1, float[] m2, int stride )
+        {
+            int rows = (int)( m1.Length / (float)stride );
+
+            int cols0 = (int)( 1 / ( (float)stride / m2.Length ) );
+            int cols1 = (int)( 1 / ( (float)stride / m1.Length ) );
+
+            if ( rows != cols0 )
+                return new float[ 0 ] { };
+
+            float[] result = new float[ rows * cols0 ];
+
+            for ( int i = 0; i < rows * cols0; i++ )
+                result[ i ] = 0f;
+
+            for ( int i = 0; i < rows; i++ )
+            {
+                for ( int j = 0; j < cols0; j++ )
+                {
+                    for ( int k = 0; k < cols1; k++ )
+                        result[ i * stride + j ] += m1[ i * stride + k ] * m2[ k * stride + j ];
+                }
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Matrix misc
+        public static void csglMatrixColumn( float[] source, ref float[] destination, int stride, int column )
+        {
+            for ( int i = stride * column; i < stride * column + stride; i++ )
+                destination[ i ] = source[ i ];
+        }
+
+        public static float[] csglMatrixVector( float[] matrix, float[] vector, int stride )
+        {
+            int columns = (int)( 1 / ( vector.Length / (float) stride ) );
+
+            float[] result = new float[ stride ];
+
+            for ( int i = 0; i < columns; i++ )
+            {
+                float column = 0;
+
+                for ( int j = 0; j < stride; j++ )
+                    column += matrix[ i * j + i ] * vector[ j ];
+
+                result[ i ] = column;
+            }
+
+            return result;
+        }
+
+        public static void csglMatrixScale( float[] matrix, float[] vector, int stride )
+        {
+            int rows = (int)( matrix.Length / (float)stride );
+
+            for( int i = 0; i < rows; i++ )
+            {
+                for ( int j = 0; j < stride; j++ )
+                    matrix[ i * stride + j ] *= ( i < vector.Length ? vector[ i ] : 1 );
+            }
+        }
+
+        public static void csglMatrixTranslate( float[] matrix, float[] vector, int stride )
+        {
+            int last = matrix.Length - stride;
+            int min = vector.Length < matrix.Length ? vector.Length : matrix.Length;
+
+            for( int i = 0; i < min; i++ )
+            {
+                for ( int j = 0; j < stride; j++ )
+                    matrix[ last + j ] += matrix[ i * stride + j ] * vector[ i ];
+            }
+        }
+
+        public static float[] csglMatrixOrtho( float left, float right, float bottom, float top, float zNear = 0f, float zFar = 1f )
+        {
+            return new float[ 16 ]
+            {
+                2f / ( right - left ), 0, 0, 0,
+                0, 2f / ( top - bottom ), 0, 0,
+                0, 0, -2f / ( zFar - zNear ), 0,
+                -( right + left )/( right - left ), -( top + bottom )/( top - bottom ), -( zFar + zNear )/( zFar - zNear ), 1
+            };
+        }
+        #endregion
+
+        #endregion
         #endregion
     }
 
@@ -4589,116 +5042,72 @@ namespace CSGL
         private uint _fragmentShader;
         private uint _shaderProgram;
 
-        private bool _set;
         private Dictionary<string, int> _uniformCache;
         #endregion
 
         #region Constructor
-        public CSGLShader() { _set = false; _uniformCache = new Dictionary<string, int>(); }
-
-        public CSGLShader( IntPtr vertexSource, IntPtr fragmentSource )
-        {
-            _vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
-            _fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
-
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
-            _uniformCache = new Dictionary<string, int>();
-
-            if ( _set )
-                _cacheUniforms();
-        }
-
-        public CSGLShader( byte[] vertexSource, byte[] fragmentSource )
-        {
-            _vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
-            _fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
-
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
-            _uniformCache = new Dictionary<string, int>();
-
-            if ( _set )
-                _cacheUniforms();
-        }
-
-        public CSGLShader( string vertexSource, string fragmentSource )
-        {
-            _vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
-            _fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
-
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
-            _uniformCache = new Dictionary<string, int>();
-
-            if ( _set )
-                _cacheUniforms();
-        }
+        public CSGLShader() { _uniformCache = new Dictionary<string, int>(); }
         #endregion
 
         #region Destructor
         ~CSGLShader()
         {
-
+            // glDeleteProgram( _shaderProgram );
         }
         #endregion
 
         #region Methods
         #region Creation
-        public void FromPointer( IntPtr vertexSource, IntPtr fragmentSource )
+        public static CSGLShader FromPointer( IntPtr vertexSource, IntPtr fragmentSource )
         {
-            if ( _set ) return;
+            CSGLShader shader = new CSGLShader();
 
-            _vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
-            _fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
+            shader._vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
+            shader._fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
+            shader._shaderProgram = csglShaderProgram( shader._vertexShader, shader._fragmentShader );
 
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
+            shader._cacheUniforms();
 
-            if ( _set )
-                _cacheUniforms();
+            return shader;
         }
 
-        public void FromBytes( byte[] vertexSource, byte[] fragmentSource )
+        public static CSGLShader FromBytes( byte[] vertexSource, byte[] fragmentSource )
         {
-            if ( _set ) return;
+            CSGLShader shader = new CSGLShader();
 
-            _vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
-            _fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
+            shader._vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
+            shader._fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
+            shader._shaderProgram = csglShaderProgram( shader._vertexShader, shader._fragmentShader );
 
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
+            shader._cacheUniforms();
 
-            if ( _set )
-                _cacheUniforms();
+            return shader;
         }
 
-        public void FromString( string vertexSource, string fragmentSource )
+        public static CSGLShader FromString( string vertexSource, string fragmentSource )
         {
-            if ( _set ) return;
+            CSGLShader shader = new CSGLShader();
 
-            _vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
-            _fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
+            shader._vertexShader = csglShader( vertexSource, GL_VERTEX_SHADER );
+            shader._fragmentShader = csglShader( fragmentSource, GL_FRAGMENT_SHADER );
+            shader._shaderProgram = csglShaderProgram( shader._vertexShader, shader._fragmentShader );
 
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
+            shader._cacheUniforms();
 
-            if ( _set )
-                _cacheUniforms();
+            return shader;
         }
 
-        public void FromFile( string vertexFile, string fragmentFile )
+        public static CSGLShader FromFile( string vertexFile, string fragmentFile )
         {
-            if ( _set ) return;
+            CSGLShader shader = new CSGLShader();
 
-            _vertexShader = csglShaderFile( vertexFile, GL_VERTEX_SHADER );
-            _fragmentShader = csglShaderFile( fragmentFile, GL_FRAGMENT_SHADER );
-            _shaderProgram = csglShaderProgram( _vertexShader, _fragmentShader );
+            shader._vertexShader = csglShaderFile( vertexFile, GL_VERTEX_SHADER );
+            shader._fragmentShader = csglShaderFile( fragmentFile, GL_FRAGMENT_SHADER );
+            shader._shaderProgram = csglShaderProgram( shader._vertexShader, shader._fragmentShader );
 
-            _set = _vertexShader != 0 && _fragmentShader != 0 && _shaderProgram != 0;
+            shader._cacheUniforms();
 
-            if ( _set )
-                _cacheUniforms();
+            return shader;
         }
         #endregion
 
@@ -4737,7 +5146,12 @@ namespace CSGL
             glUseProgram( _shaderProgram );
         }
 
-        #region Set
+        public int GetUniformLocation( string name )
+        {
+            return _uniformCache[ name ];
+        }
+
+        #region Set (string name)
         #region 1D
         public void SetBool( string name, bool value )
         {
@@ -4860,8 +5274,529 @@ namespace CSGL
         }
         public void SetDVector4( string name, double[] xyzw ) { SetDVector4( name, xyzw[ 0 ], xyzw[ 1 ], xyzw[ 2 ], xyzw[ 3 ] ); }
         #endregion
+
+        #region Matrix
+        public void SetMatrix2( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix2fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix2x3( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix2x3fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix2x4( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix2x4fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix3( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix3fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix3x2( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix3x2fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix3x4( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix3x4fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix4( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix4fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix4x2( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix4x2fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix4x3( string name, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix4x3fv( _uniformCache[ name ], count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
         #endregion
         #endregion
+
+        #region Set (int location)
+        #region 1D
+        public void SetBool( int location, bool value )
+        {
+            glUniform1i( location, value ? GL_TRUE : GL_FALSE );
+        }
+
+        public void SetUInt( int location, uint value )
+        {
+            glUniform1ui( location, value );
+        }
+
+        public void SetInt( int location, int value )
+        {
+            glUniform1i( location, value );
+        }
+
+        public void SetFloat( int location, float value )
+        {
+            glUniform1f( location, value );
+        }
+
+        public void SetDouble( int location, double value )
+        {
+            glUniform1d( location, value );
+        }
+        #endregion
+
+        #region 2D
+        public void SetBVector2( int location, bool x, bool y )
+        {
+            glUniform2i( location, x ? GL_TRUE : GL_FALSE, y ? GL_TRUE : GL_FALSE );
+        }
+        public void SetBVector2( int location, bool[] xy ) { SetBVector2( location, xy[ 0 ], xy[ 1 ] ); }
+
+        public void SetUVector2( int location, uint x, uint y )
+        {
+            glUniform2ui( location, x, y );
+        }
+        public void SetUVector2( int location, bool[] xy ) { SetBVector2( location, xy[ 0 ], xy[ 1 ] ); }
+
+        public void SetIVector2( int location, int x, int y )
+        {
+            glUniform2i( location, x, y );
+        }
+        public void SetIVector2( int location, bool[] xy ) { SetBVector2( location, xy[ 0 ], xy[ 1 ] ); }
+
+        public void SetVector2( int location, float x, float y )
+        {
+            glUniform2f( location, x, y );
+        }
+        public void SetVector2( int location, bool[] xy ) { SetBVector2( location, xy[ 0 ], xy[ 1 ] ); }
+
+        public void SetDVector2( int location, double x, double y )
+        {
+            glUniform2d( location, x, y );
+        }
+        public void SetDVector2( int location, bool[] xy ) { SetBVector2( location, xy[ 0 ], xy[ 1 ] ); }
+        #endregion
+
+        #region 3D
+        public void SetBVector3( int location, bool x, bool y, bool z )
+        {
+            glUniform3i( location, x ? GL_TRUE : GL_FALSE, y ? GL_TRUE : GL_FALSE, z ? GL_TRUE : GL_FALSE );
+        }
+        public void SetBVector3( int location, bool[] xyz ) { SetBVector3( location, xyz[ 0 ], xyz[ 1 ], xyz[ 2 ] ); }
+
+        public void SetUVector3( int location, uint x, uint y, uint z )
+        {
+            glUniform3ui( location, x, y, z );
+        }
+        public void SetUVector3( int location, uint[] xyz ) { SetUVector3( location, xyz[ 0 ], xyz[ 1 ], xyz[ 2 ] ); }
+
+        public void SetIVector3( int location, int x, int y, int z )
+        {
+            glUniform3i( location, x, y, z );
+        }
+        public void SetIVector3( int location, int[] xyz ) { SetIVector3( location, xyz[ 0 ], xyz[ 1 ], xyz[ 2 ] ); }
+
+        public void SetVector3( int location, float x, float y, float z )
+        {
+            glUniform3f( location, x, y, z );
+        }
+        public void SetVector3( int location, float[] xyz ) { SetVector3( location, xyz[ 0 ], xyz[ 1 ], xyz[ 2 ] ); }
+
+        public void SetDVector3( int location, double x, double y, double z )
+        {
+            glUniform3d( location, x, y, z );
+        }
+        public void SetDVector3( int location, double[] xyz ) { SetDVector3( location, xyz[ 0 ], xyz[ 1 ], xyz[ 2 ] ); }
+        #endregion
+
+        #region 4D
+        public void SetBVector4( int location, bool x, bool y, bool z, bool w )
+        {
+            glUniform4i( location, x ? GL_TRUE : GL_FALSE, y ? GL_TRUE : GL_FALSE, z ? GL_TRUE : GL_FALSE, w ? GL_TRUE : GL_FALSE );
+        }
+        public void SetBVector4( int location, bool[] xyzw ) { SetBVector4( location, xyzw[ 0 ], xyzw[ 1 ], xyzw[ 2 ], xyzw[ 3 ] ); }
+
+        public void SetUVector4( int location, uint x, uint y, uint z, uint w )
+        {
+            glUniform4ui( location, x, y, z, w );
+        }
+        public void SetUVector4( int location, uint[] xyzw ) { SetUVector4( location, xyzw[ 0 ], xyzw[ 1 ], xyzw[ 2 ], xyzw[ 3 ] ); }
+
+        public void SetIVector4( int location, int x, int y, int z, int w )
+        {
+            glUniform4i( location, x, y, z, w );
+        }
+        public void SetIVector4( int location, int[] xyzw ) { SetIVector4( location, xyzw[ 0 ], xyzw[ 1 ], xyzw[ 2 ], xyzw[ 3 ] ); }
+
+        public void SetVector4( int location, float x, float y, float z, float w )
+        {
+            glUniform4f( location, x, y, z, w );
+        }
+        public void SetVector4( int location, float[] xyzw ) { SetVector4( location, xyzw[ 0 ], xyzw[ 1 ], xyzw[ 2 ], xyzw[ 3 ] ); }
+
+        public void SetDVector4( int location, double x, double y, double z, double w )
+        {
+            glUniform4d( location, x, y, z, w );
+        }
+        public void SetDVector4( int location, double[] xyzw ) { SetDVector4( location, xyzw[ 0 ], xyzw[ 1 ], xyzw[ 2 ], xyzw[ 3 ] ); }
+        #endregion
+
+        #region Matrix
+        public void SetMatrix2( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix2fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix2x3( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix2x3fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix2x4( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix2x4fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix3( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix3fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix3x2( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix3x2fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix3x4( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix3x4fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix4( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix4fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix4x2( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix4x2fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+
+        public void SetMatrix4x3( int location, int count, bool transpose, float[] value )
+        {
+            glUniformMatrix4x3fv( location, count, transpose ? GL_TRUE : GL_FALSE, ref value[ 0 ] );
+        }
+        #endregion
+        #endregion
+        #endregion
+        #endregion
+    }
+
+    public class CSGLSprite
+    {
+        #region Fields
+        private float[] _vertices;
+
+        private uint _texture;
+
+        private uint _vbo;
+        private uint _vao;
+
+        public float Width;
+        public float Height;
+
+        #region Abstracted
+        /* Vertex map
+            _vertices = new float [] {
+                0   1                       2           3           4           5               6   7
+                _x, _y,                     _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     0f, 0f,
+
+                8           9               10          11          12          13              14  15
+                _x + _width, _y,            _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     1f, 0f,
+
+                16          17              18          19          20          21              22  23
+                _x + width, _y + height,    _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     1f, 1f,
+
+                24  25  27                  26          28          29          30              31  32
+                _x, _y + height,            _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     0f, 1f,
+            };
+         */
+        #endregion
+        #endregion
+
+        #region Constructor
+        public CSGLSprite( float width, float height, uint texture )
+        {
+            _texture = texture;
+
+            Width = width;
+            Height = height;
+
+            _vertices = new float[] {
+                0f, 0f,             0f, 0f,
+                width, 0f,          1f, 0f,
+                width, height,      1f, 1f,
+                0f, height,         0f, 1f
+            };
+
+            _vao = 0;
+            glGenVertexArrays( 1, ref _vao );
+            glBindVertexArray( _vao );
+
+            _vbo = csglBuffer( _vertices );
+
+            csglVertexAttribPointer( 0, 2, GL_FLOAT, 4 * sizeof( float ) );
+            glEnableVertexAttribArray( 0 );
+
+            csglVertexAttribPointer( 1, 2, GL_FLOAT, 4 * sizeof( float ), 2 * sizeof( float ) );
+            glEnableVertexAttribArray( 1 );
+        }
+        #endregion
+
+        #region Destructor
+        ~CSGLSprite()
+        {
+            csglTextureClear( _texture );
+        }
+        #endregion
+
+        #region Methods
+        public void Draw()
+        {
+            glBindTexture( GL_TEXTURE_2D, _texture );
+            glBindVertexArray( _vao );
+            glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
+        }
+        #endregion
+    }
+
+    public class CSGLWindow
+    {
+        #region Fields
+        private IntPtr _glfwWindow;
+        public IntPtr Pointer { get { return _glfwWindow; } }
+
+        private double _lastDrawTime;
+        private double _lastUpdatetime;
+
+        #region Abstracted
+        private int _x;
+        public int X
+        {
+            get { return _x; }
+
+            set
+            {
+                _x = value;
+                glfwSetWindowPos( _glfwWindow, value, _y );
+            }
+        }
+
+        private int _y;
+        public int Y
+        {
+            get { return _y; }
+
+            set
+            {
+                _y = value;
+                glfwSetWindowPos( _glfwWindow, _x, value );
+            }
+        }
+
+        private int _width;
+        public int Width
+        {
+            get { return _width; }
+
+            set
+            {
+                _width = value;
+                glfwSetWindowSize( _glfwWindow, value, _height );
+            }
+        }
+
+        private int _height;
+        public int Height
+        {
+            get { return _height; }
+
+            set
+            {
+                _height = value;
+                glfwSetWindowSize( _glfwWindow, _width, value );
+            }
+        }
+
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+
+            set
+            {
+                _title = value;
+                glfwSetWindowTitle( _glfwWindow, value );
+            }
+        }
+
+        private CSGLWindowStyle _style;
+        public CSGLWindowStyle Style
+        {
+            get { return _style; }
+
+            set
+            {
+                // TODO: Replace as soon as GLFW 3.3 gets released
+
+                _style = value;
+
+                bool borderless = ( value & CSGLWindowStyle.Borderless ) != 0;
+                bool fullscreen = ( value & CSGLWindowStyle.Fullscreen ) != 0;
+
+                glfwWindowHint( GLFW_DECORATED, borderless ? GL_FALSE : GL_TRUE );
+
+                if ( fullscreen )
+                {
+                    if ( borderless )
+                    {
+                        IntPtr monitor = glfwGetPrimaryMonitor();
+                        IntPtr mode = glfwGetVideoMode( monitor );
+
+                        unsafe
+                        {
+                            GLFWvidmode* ptrMode = (GLFWvidmode*)mode;
+
+                            glfwWindowHint( GLFW_REFRESH_RATE, ptrMode->refreshRate );
+
+                            IntPtr _tempWindow = glfwCreateWindow( ptrMode->width, ptrMode->height, _title, monitor, _glfwWindow );
+                            glfwDestroyWindow( _glfwWindow );
+                            _glfwWindow = _tempWindow;
+
+                            _width = ptrMode->width;
+                            _height = ptrMode->height;
+                        }
+
+                        glfwMakeContextCurrent( _glfwWindow );
+                        _setCallbacks();
+
+                        glViewport( 0, 0, _width, _height );
+                    }
+                    else
+                    {
+                        IntPtr _tempWindow = glfwCreateWindow( _width, _height, _title, glfwGetPrimaryMonitor(), _glfwWindow );
+                        glfwDestroyWindow( _glfwWindow );
+                        _glfwWindow = _tempWindow;
+
+                        glfwMakeContextCurrent( _glfwWindow );
+                        _setCallbacks();
+
+                        glViewport( 0, 0, _width, _height );
+                    }
+                }
+                else
+                {
+                    IntPtr _tempWindow = glfwCreateWindow( _width, _height, _title, IntPtr.Zero, _glfwWindow );
+                    glfwDestroyWindow( _glfwWindow );
+                    _glfwWindow = _tempWindow;
+
+                    glfwMakeContextCurrent( _glfwWindow );
+                    _setCallbacks();
+
+                    glViewport( 0, 0, _width, _height );
+                }
+            }
+        }
+        #endregion
+
+        #region Events
+        public event GLFWkeyfun OnKeyboard;
+        public event GLFWcursorposfun OnCursorMoved;
+        public event GLFWcursorenterfun OnCursorEnteredLeft;
+        public event GLFWmousebuttonfun OnMouse;
+        public event GLFWscrollfun OnScroll;
+
+        public event CSGLDrawEvent OnDraw;
+        public event CSGLUpdateEvent OnUpdate;
+        #endregion
+        #endregion
+
+        #region Constructor
+        public CSGLWindow( int width = 640, int height = 480, string title = "CSGLWindow" )
+        {
+            glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
+
+            _glfwWindow = glfwCreateWindow( width, height, title, IntPtr.Zero, IntPtr.Zero );
+            glfwMakeContextCurrent( _glfwWindow );
+
+            glfwShowWindow( _glfwWindow );
+
+            if ( glViewport == null )
+                csglLoad();
+
+            glViewport( 0, 0, width, height );
+
+            // Initialize fields
+            _x = 0;
+            _y = 0;
+            _width = width;
+            _height = height;
+            _title = title;
+        }
+        #endregion
+
+        #region Destructor
+        ~CSGLWindow()
+        {
+            glfwDestroyWindow( _glfwWindow );
+        }
+        #endregion
+
+        #region Methods
+        public void MakeContextCurrent()
+        {
+            glfwMakeContextCurrent( _glfwWindow );
+        }
+
+        private void _setCallbacks()
+        {
+            glfwSetKeyCallback( _glfwWindow, OnKeyboard );
+            glfwSetCursorPosCallback( _glfwWindow, OnCursorMoved );
+            glfwSetCursorEnterCallback( _glfwWindow, OnCursorEnteredLeft );
+            glfwSetMouseButtonCallback( _glfwWindow, OnMouse );
+            glfwSetScrollCallback( _glfwWindow, OnScroll );
+        }
+
+        public void Run()
+        {
+            _setCallbacks();
+
+            _lastDrawTime = glfwGetTime();
+            _lastUpdatetime = glfwGetTime();
+
+            while ( glfwWindowShouldClose( _glfwWindow ) == 0 )
+            {
+                glfwPollEvents();
+
+                glClear( GL_COLOR_BUFFER_BIT );
+
+                OnUpdate?.Invoke( this, glfwGetTime() - _lastUpdatetime );
+                _lastUpdatetime = glfwGetTime();
+
+                OnDraw?.Invoke( this, glfwGetTime() - _lastDrawTime );
+                _lastDrawTime = glfwGetTime();
+
+                glfwSwapBuffers( _glfwWindow );
+
+                Thread.Sleep( 1 );
+            }
+        }
         #endregion
     }
 }
