@@ -37,12 +37,133 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 #endregion
 
+#region Loader
+namespace CSGL
+{
+    public static class DLL
+    {
+        #region DllImport
+        [DllImport( "kernel32.dll" )]
+        private static extern IntPtr LoadLibrary( string filename );
+
+        [DllImport( "kernel32.dll" )]
+        private static extern IntPtr GetProcAddress( IntPtr hModule, string procname );
+
+        [DllImport( "kernel32.dll" )]
+        private static extern void CopyMemory( IntPtr dest, IntPtr src, uint count );
+
+        [DllImport( "libdl.so" )]
+        private static extern IntPtr dlopen( string filename, int flags );
+
+        [DllImport( "libdl.so" )]
+        private static extern IntPtr dlsym( IntPtr handle, string symbol );
+
+        [DllImport( "libc.so" )]
+        private static extern void memcpy( IntPtr dest, IntPtr src, uint n );
+
+        const int RTLD_NOW = 2;
+        #endregion
+
+        #region Abstracted
+        private static bool _linuxset = false;
+        private static bool _linux = false;
+
+        public static bool __linux__
+        {
+            get
+            {
+                if( !_linuxset )
+                {
+                    int p = (int)Environment.OSVersion.Platform;
+                    _linux = ( p == 4 ) || ( p == 6 ) || ( p == 128 );
+                }
+
+                return _linux;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private static Type _delegateType = typeof( MulticastDelegate );
+        #endregion
+
+        #region Methods
+        public static IntPtr csglDllLoad( string filename )
+        {
+            IntPtr mHnd;
+
+            if ( __linux__ )
+                mHnd = dlopen( filename, RTLD_NOW );
+            else
+                mHnd = LoadLibrary( filename );
+
+            if ( mHnd != IntPtr.Zero )
+                Console.WriteLine( "Linked '{0}' -> '0x{1}'", filename, mHnd.ToString( "X" ) );
+            else
+                Console.WriteLine( "Failed to link '{0}'", filename );
+
+            return mHnd;
+        }
+
+        public static IntPtr csglDllSymbol( IntPtr mHnd, string symbol )
+        {
+            IntPtr symPtr;
+
+            if ( __linux__ )
+                symPtr = dlsym( mHnd, symbol );
+            else
+                symPtr = GetProcAddress( mHnd, symbol );
+
+            return symPtr;
+        }
+
+        public static Delegate csglDllDelegate( Type delegateType, IntPtr mHnd, string symbol )
+        {
+            IntPtr ptrSym = csglDllSymbol( mHnd, symbol );
+            return Marshal.GetDelegateForFunctionPointer( ptrSym, delegateType );
+        }
+
+        public static void csglDllLinkAllDelegates( Type ofType, IntPtr mHnd )
+        {
+            FieldInfo[] fields = ofType.GetFields( BindingFlags.Public | BindingFlags.Static );
+
+            foreach ( FieldInfo fi in fields )
+            {
+                if ( fi.FieldType.BaseType == _delegateType )
+                {
+                    IntPtr ptr = csglDllSymbol( mHnd, fi.Name );
+
+                    if ( ptr != IntPtr.Zero )
+                        fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( ptr, fi.FieldType ) );
+                    else
+                        Console.WriteLine( "Could not resolve '{0}' in loaded assembly '0x{1}'.", fi.Name, mHnd.ToString( "X" ) );
+                }
+            }
+        }
+
+        public static void csglMemcpy( IntPtr dest, IntPtr source, uint count )
+        {
+            if ( __linux__ )
+                memcpy( dest, source, count );
+            else
+                CopyMemory( dest, source, count );
+        }
+        #endregion
+    }
+}
+#endregion
+
 #region Implementation
 namespace CSGL
 {
+    using static DLL;
+
     public static class Glfw3
     {
-        private const string _lib = "glfw3";
+        public static string GLFWWindows = "glfw3.dll";
+        public static string GLFWLinux = "./libglfw.so";
+
+        private static IntPtr _glfwHnd;
 
         #region Constants
         public const int GLFW_VERSION_MAJOR = 3;
@@ -304,6 +425,99 @@ namespace CSGL
         public delegate void GLFWdropfun( IntPtr window, int count, [Out] string[] paths );
         public delegate void GLFWmonitorfun( IntPtr window, int ev );
         public delegate void GLFWjoystickfun( int window, int ev );
+
+        public delegate int PFNGLFWINITPROC();
+        public delegate void PFNGLFWTERMINATEPROC();
+        public delegate void PFNGLFWGETVERSIONPROC( ref int major, ref int minor, ref int rev );
+        public delegate IntPtr PFNGLFWGETVERSIONSTRINGPROC();
+        public delegate GLFWerrorfun PFNGLFWSETERRORCALLBACKPROC( GLFWerrorfun cbfun );
+        public delegate IntPtr PFNGLFWGETMONITORSPROC( ref int count );
+        public delegate IntPtr PFNGLFWGETPRIMARYMONITORPROC();
+        public delegate void PFNGLFWGETMONITORPOSPROC( IntPtr monitor, ref int xpos, ref int ypos );
+        public delegate void PFNGLFWGETMONITORPHYSICALSIZEPROC( IntPtr monitor, ref int widthMM, ref int heightMM );
+        public delegate IntPtr PFNGLFWGETMONITORNAMEPROC( IntPtr monitor );
+        public delegate GLFWmonitorfun PFNGLFWSETMONITORCALLBACKPROC( GLFWmonitorfun cbfun );
+        public delegate IntPtr PFNGLFWGETVIDEOMODESPROC( IntPtr monitor, ref int count );
+        public delegate IntPtr PFNGLFWGETVIDEOMODEPROC( IntPtr monitor );
+        public delegate void PFNGLFWSETGAMMAPROC( IntPtr monitor, float gamma );
+        public delegate IntPtr PFNGLFWGETGAMMARAMPPROC( IntPtr monitor );
+        public delegate void PFNGLFWSETGAMMARAMPPROC( IntPtr monitor, ref GLFWgammaramp ramp );
+        public delegate void PFNGLFWDEFAULTWINDOWHINTSPROC();
+        public delegate void PFNGLFWWINDOWHINTPROC( int hint, int value );
+        public delegate IntPtr PFNGLFWCREATEWINDOWPROC( int width, int height, [In] [MarshalAs( UnmanagedType.LPStr )] string title, IntPtr monitor, IntPtr share );
+        public delegate void PFNGLFWDESTROYWINDOWPROC( IntPtr window );
+        public delegate int PFNGLFWWINDOWSHOULDCLOSEPROC( IntPtr window );
+        public delegate void PFNGLFWSETWINDOWSHOULDCLOSEPROC( IntPtr window, int value );
+        public delegate void PFNGLFWSETWINDOWTITLEPROC( IntPtr window, [In] [MarshalAs( UnmanagedType.LPStr )] string title );
+        public delegate void PFNGLFWSETWINDOWICONPROC( IntPtr window, int count, ref GLFWimage images );
+        public delegate void PFNGLFWGETWINDOWPOSPROC( IntPtr window, ref int xpos, ref int ypos );
+        public delegate void PFNGLFWSETWINDOWPOSPROC( IntPtr window, int xpos, int ypos );
+        public delegate void PFNGLFWGETWINDOWSIZEPROC( IntPtr window, ref int width, ref int height );
+        public delegate void PFNGLFWSETWINDOWSIZELIMITSPROC( IntPtr window, int minwidth, int minheight, int maxwidth, int maxheight );
+        public delegate void PFNGLFWSETWINDOWASPECTRATIOPROC( IntPtr window, int numer, int denom );
+        public delegate void PFNGLFWSETWINDOWSIZEPROC( IntPtr window, int width, int height );
+        public delegate void PFNGLFWGETFRAMEBUFFERSIZEPROC( IntPtr window, ref int width, ref int height );
+        public delegate void PFNGLFWGETWINDOWFRAMESIZEPROC( IntPtr window, ref int left, ref int top, ref int right, ref int bottom );
+        public delegate void PFNGLFWICONIFYWINDOWPROC( IntPtr window );
+        public delegate void PFNGLFWRESTOREWINDOWPROC( IntPtr window );
+        public delegate void PFNGLFWMAXIMIZEWINDOWPROC( IntPtr window );
+        public delegate void PFNGLFWSHOWWINDOWPROC( IntPtr window );
+        public delegate void PFNGLFWHIDEWINDOWPROC( IntPtr window );
+        public delegate void PFNGLFWFOCUSWINDOWPROC( IntPtr window );
+        public delegate IntPtr PFNGLFWGETWINDOWMONITORPROC( IntPtr window );
+        public delegate void PFNGLFWSETWINDOWMONITORPROC( IntPtr window, IntPtr monitor, int xpos, int ypos, int width, int height, int refreshRate );
+        public delegate int PFNGLFWGETWINDOWATTRIBPROC( IntPtr window, int attrib );
+        public delegate void PFNGLFWSETWINDOWUSERPOINTERPROC( IntPtr window, IntPtr pointer );
+        public delegate IntPtr PFNGLFWGETWINDOWUSERPOINTERPROC( IntPtr window );
+        public delegate GLFWwindowposfun PFNGLFWSETWINDOWPOSCALLBACKPROC( IntPtr window, GLFWwindowposfun cbfun );
+        public delegate GLFWwindowsizefun PFNGLFWSETWINDOWSIZECALLBACKPROC( IntPtr window, GLFWwindowsizefun cbfun );
+        public delegate GLFWwindowclosefun PFNGLFWSETWINDOWCLOSECALLBACKPROC( IntPtr window, GLFWwindowclosefun cbfun );
+        public delegate GLFWwindowrefreshfun PFNGLFWSETWINDOWREFRESHCALLBACKPROC( IntPtr window, GLFWwindowrefreshfun cbfun );
+        public delegate GLFWwindowfocusfun PFNGLFWSETWINDOWFOCUSCALLBACKPROC( IntPtr window, GLFWwindowfocusfun cbfun );
+        public delegate GLFWwindowiconifyfun PFNGLFWSETWINDOWICONIFYCALLBACKPROC( IntPtr window, GLFWwindowiconifyfun cbfun );
+        public delegate GLFWframebuffersizefun PFNGLFWSETFRAMEBUFFERSIZECALLBACKPROC( IntPtr window, GLFWframebuffersizefun cbfun );
+        public delegate void PFNGLFWPOLLEVENTSPROC();
+        public delegate void PFNGLFWWAITEVENTSPROC();
+        public delegate void PFNGLFWWAITEVENTSTIMEOUTPROC( double timeout );
+        public delegate void PFNGLFWPOSTEMPTYEVENTPROC();
+        public delegate int PFNGLFWGETINPUTMODEPROC( IntPtr window, int mode );
+        public delegate void PFNGLFWSETINPUTMODEPROC( IntPtr window, int mode, int value );
+        public delegate IntPtr PFNGLFWGETKEYNAMEPROC( int key, int scancode );
+        public delegate int PFNGLFWGETKEYPROC( IntPtr window, int key );
+        public delegate int PFNGLFWGETMOUSEBUTTONPROC( IntPtr window, int button );
+        public delegate void PFNGLFWGETCURSORPOSPROC( IntPtr window, ref double xpos, ref double ypos );
+        public delegate void PFNGLFWSETCURSORPOSPROC( IntPtr window, double xpos, double ypos );
+        public delegate IntPtr PFNGLFWCREATECURSORPROC( ref GLFWimage image, int xhot, int yhot );
+        public delegate IntPtr PFNGLFWCREATESTANDARDCURSORPROC( int shape );
+        public delegate void PFNGLFWDESTROYCURSORPROC( IntPtr cursor );
+        public delegate void PFNGLFWSETCURSORPROC( IntPtr window, IntPtr cursor );
+        public delegate GLFWkeyfun PFNGLFWSETKEYCALLBACKPROC( IntPtr window, GLFWkeyfun cbfun );
+        public delegate GLFWcharfun PFNGLFWSETCHARCALLBACKPROC( IntPtr window, GLFWcharfun cbfun );
+        public delegate GLFWcharmodsfun PFNGLFWSETCHARMODSCALLBACKPROC( IntPtr window, GLFWcharmodsfun cbfun );
+        public delegate GLFWmousebuttonfun PFNGLFWSETMOUSEBUTTONCALLBACKPROC( IntPtr window, GLFWmousebuttonfun cbfun );
+        public delegate GLFWcursorposfun PFNGLFWSETCURSORPOSCALLBACKPROC( IntPtr window, GLFWcursorposfun cbfun );
+        public delegate GLFWcursorenterfun PFNGLFWSETCURSORENTERCALLBACKPROC( IntPtr window, GLFWcursorenterfun cbfun );
+        public delegate GLFWscrollfun PFNGLFWSETSCROLLCALLBACKPROC( IntPtr window, GLFWscrollfun cbfun );
+        public delegate GLFWdropfun PFNGLFWSETDROPCALLBACKPROC( IntPtr window, GLFWdropfun cbfun );
+        public delegate int PFNGLFWJOYSTICKPRESENTPROC( int joy );
+        public delegate IntPtr PFNGLFWGETJOYSTICKAXESPROC( int joy, ref int count );
+        public delegate IntPtr PFNGLFWGETJOYSTICKBUTTONSPROC( int joy, ref int count );
+        public delegate IntPtr PFNGLFWGETJOYSTICKNAMEPROC( int joy );
+        public delegate GLFWjoystickfun PFNGLFWSETJOYSTICKCALLBACKPROC( GLFWjoystickfun cbfun );
+        public delegate void PFNGLFWSETCLIPBOARDSTRINGPROC( IntPtr window, [In] [MarshalAs( UnmanagedType.LPStr )] string @string );
+        public delegate IntPtr PFNGLFWGETCLIPBOARDSTRINGPROC( IntPtr window );
+        public delegate double PFNGLFWGETTIMEPROC();
+        public delegate void PFNGLFWSETTIMEPROC( double time );
+        public delegate uint PFNGLFWGETTIMERVALUEPROC();
+        public delegate uint PFNGLFWGETTIMERFREQUENCYPROC();
+        public delegate void PFNGLFWMAKECONTEXTCURRENTPROC( IntPtr window );
+        public delegate IntPtr PFNGLFWGETCURRENTCONTEXTPROC();
+        public delegate void PFNGLFWSWAPBUFFERSPROC( IntPtr window );
+        public delegate void PFNGLFWSWAPINTERVALPROC( int interval );
+        public delegate int PFNGLFWEXTENSIONSUPPORTEDPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string extension );
+        public delegate IntPtr PFNGLFWGETPROCADDRESSPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string procname );
+        public delegate int PFNGLFWVULKANSUPPORTEDPROC();
+        public delegate IntPtr PFNGLFWGETREQUIREDINSTANCEEXTENSIONSPROC( ref uint count );
         #endregion
 
         #region Structures
@@ -338,190 +552,108 @@ namespace CSGL
         #endregion
 
         #region Methods
-        [DllImport( _lib, EntryPoint = "glfwInit" )]
-        public static extern int glfwInit();
-        [DllImport( _lib, EntryPoint = "glfwTerminate" )]
-        public static extern void glfwTerminate();
-        [DllImport( _lib, EntryPoint = "glfwGetVersion" )]
-        public static extern void glfwGetVersion( ref int major, ref int minor, ref int rev );
-        [DllImport( _lib, EntryPoint = "glfwGetVersionString" )]
-        public static extern IntPtr glfwGetVersionString();
-        [DllImport( _lib, EntryPoint = "glfwSetErrorCallback" )]
-        public static extern GLFWerrorfun glfwSetErrorCallback( GLFWerrorfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwGetMonitors" )]
-        public static extern IntPtr glfwGetMonitors( ref int count );
-        [DllImport( _lib, EntryPoint = "glfwGetPrimaryMonitor" )]
-        public static extern IntPtr glfwGetPrimaryMonitor();
-        [DllImport( _lib, EntryPoint = "glfwGetMonitorPos" )]
-        public static extern void glfwGetMonitorPos( IntPtr monitor, ref int xpos, ref int ypos );
-        [DllImport( _lib, EntryPoint = "glfwGetMonitorPhysicalSize" )]
-        public static extern void glfwGetMonitorPhysicalSize( IntPtr monitor, ref int widthMM, ref int heightMM );
-        [DllImport( _lib, EntryPoint = "glfwGetMonitorName" )]
-        public static extern IntPtr glfwGetMonitorName( IntPtr monitor );
-        [DllImport( _lib, EntryPoint = "glfwSetMonitorCallback" )]
-        public static extern GLFWmonitorfun glfwSetMonitorCallback( GLFWmonitorfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwGetVideoModes" )]
-        public static extern IntPtr glfwGetVideoModes( IntPtr monitor, ref int count );
-        [DllImport( _lib, EntryPoint = "glfwGetVideoMode" )]
-        public static extern IntPtr glfwGetVideoMode( IntPtr monitor );
-        [DllImport( _lib, EntryPoint = "glfwSetGamma" )]
-        public static extern void glfwSetGamma( IntPtr monitor, float gamma );
-        [DllImport( _lib, EntryPoint = "glfwGetGammaRamp" )]
-        public static extern IntPtr glfwGetGammaRamp( IntPtr monitor );
-        [DllImport( _lib, EntryPoint = "glfwSetGammaRamp" )]
-        public static extern void glfwSetGammaRamp( IntPtr monitor, ref GLFWgammaramp ramp );
-        [DllImport( _lib, EntryPoint = "glfwDefaultWindowHints" )]
-        public static extern void glfwDefaultWindowHints();
-        [DllImport( _lib, EntryPoint = "glfwWindowHint" )]
-        public static extern void glfwWindowHint( int hint, int value );
-        [DllImport( _lib, EntryPoint = "glfwCreateWindow" )]
-        public static extern IntPtr glfwCreateWindow( int width, int height, [In] [MarshalAs( UnmanagedType.LPStr )] string title, IntPtr monitor, IntPtr share );
-        [DllImport( _lib, EntryPoint = "glfwDestroyWindow" )]
-        public static extern void glfwDestroyWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwWindowShouldClose" )]
-        public static extern int glfwWindowShouldClose( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowShouldClose" )]
-        public static extern void glfwSetWindowShouldClose( IntPtr window, int value );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowTitle" )]
-        public static extern void glfwSetWindowTitle( IntPtr window, [In] [MarshalAs( UnmanagedType.LPStr )] string title );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowIcon" )]
-        public static extern void glfwSetWindowIcon( IntPtr window, int count, ref GLFWimage images );
-        [DllImport( _lib, EntryPoint = "glfwGetWindowPos" )]
-        public static extern void glfwGetWindowPos( IntPtr window, ref int xpos, ref int ypos );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowPos" )]
-        public static extern void glfwSetWindowPos( IntPtr window, int xpos, int ypos );
-        [DllImport( _lib, EntryPoint = "glfwGetWindowSize" )]
-        public static extern void glfwGetWindowSize( IntPtr window, ref int width, ref int height );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowSizeLimits" )]
-        public static extern void glfwSetWindowSizeLimits( IntPtr window, int minwidth, int minheight, int maxwidth, int maxheight );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowAspectRatio" )]
-        public static extern void glfwSetWindowAspectRatio( IntPtr window, int numer, int denom );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowSize" )]
-        public static extern void glfwSetWindowSize( IntPtr window, int width, int height );
-        [DllImport( _lib, EntryPoint = "glfwGetFramebufferSize" )]
-        public static extern void glfwGetFramebufferSize( IntPtr window, ref int width, ref int height );
-        [DllImport( _lib, EntryPoint = "glfwGetWindowFrameSize" )]
-        public static extern void glfwGetWindowFrameSize( IntPtr window, ref int left, ref int top, ref int right, ref int bottom );
-        [DllImport( _lib, EntryPoint = "glfwIconifyWindow" )]
-        public static extern void glfwIconifyWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwRestoreWindow" )]
-        public static extern void glfwRestoreWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwMaximizeWindow" )]
-        public static extern void glfwMaximizeWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwShowWindow" )]
-        public static extern void glfwShowWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwHideWindow" )]
-        public static extern void glfwHideWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwFocusWindow" )]
-        public static extern void glfwFocusWindow( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwGetWindowMonitor" )]
-        public static extern IntPtr glfwGetWindowMonitor( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowMonitor" )]
-        public static extern void glfwSetWindowMonitor( IntPtr window, IntPtr monitor, int xpos, int ypos, int width, int height, int refreshRate );
-        [DllImport( _lib, EntryPoint = "glfwGetWindowAttrib" )]
-        public static extern int glfwGetWindowAttrib( IntPtr window, int attrib );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowUserPointer" )]
-        public static extern void glfwSetWindowUserPointer( IntPtr window, IntPtr pointer );
-        [DllImport( _lib, EntryPoint = "glfwGetWindowUserPointer" )]
-        public static extern IntPtr glfwGetWindowUserPointer( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowPosCallback" )]
-        public static extern GLFWwindowposfun glfwSetWindowPosCallback( IntPtr window, GLFWwindowposfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowSizeCallback" )]
-        public static extern GLFWwindowsizefun glfwSetWindowSizeCallback( IntPtr window, GLFWwindowsizefun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowCloseCallback" )]
-        public static extern GLFWwindowclosefun glfwSetWindowCloseCallback( IntPtr window, GLFWwindowclosefun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowRefreshCallback" )]
-        public static extern GLFWwindowrefreshfun glfwSetWindowRefreshCallback( IntPtr window, GLFWwindowrefreshfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowFocusCallback" )]
-        public static extern GLFWwindowfocusfun glfwSetWindowFocusCallback( IntPtr window, GLFWwindowfocusfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetWindowIconifyCallback" )]
-        public static extern GLFWwindowiconifyfun glfwSetWindowIconifyCallback( IntPtr window, GLFWwindowiconifyfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetFramebufferSizeCallback" )]
-        public static extern GLFWframebuffersizefun glfwSetFramebufferSizeCallback( IntPtr window, GLFWframebuffersizefun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwPollEvents" )]
-        public static extern void glfwPollEvents();
-        [DllImport( _lib, EntryPoint = "glfwWaitEvents" )]
-        public static extern void glfwWaitEvents();
-        [DllImport( _lib, EntryPoint = "glfwWaitEventsTimeout" )]
-        public static extern void glfwWaitEventsTimeout( double timeout );
-        [DllImport( _lib, EntryPoint = "glfwPostEmptyEvent" )]
-        public static extern void glfwPostEmptyEvent();
-        [DllImport( _lib, EntryPoint = "glfwGetInputMode" )]
-        public static extern int glfwGetInputMode( IntPtr window, int mode );
-        [DllImport( _lib, EntryPoint = "glfwSetInputMode" )]
-        public static extern void glfwSetInputMode( IntPtr window, int mode, int value );
-        [DllImport( _lib, EntryPoint = "glfwGetKeyName" )]
-        public static extern IntPtr glfwGetKeyName( int key, int scancode );
-        [DllImport( _lib, EntryPoint = "glfwGetKey" )]
-        public static extern int glfwGetKey( IntPtr window, int key );
-        [DllImport( _lib, EntryPoint = "glfwGetMouseButton" )]
-        public static extern int glfwGetMouseButton( IntPtr window, int button );
-        [DllImport( _lib, EntryPoint = "glfwGetCursorPos" )]
-        public static extern void glfwGetCursorPos( IntPtr window, ref double xpos, ref double ypos );
-        [DllImport( _lib, EntryPoint = "glfwSetCursorPos" )]
-        public static extern void glfwSetCursorPos( IntPtr window, double xpos, double ypos );
-        [DllImport( _lib, EntryPoint = "glfwCreateCursor" )]
-        public static extern IntPtr glfwCreateCursor( ref GLFWimage image, int xhot, int yhot );
-        [DllImport( _lib, EntryPoint = "glfwCreateStandardCursor" )]
-        public static extern IntPtr glfwCreateStandardCursor( int shape );
-        [DllImport( _lib, EntryPoint = "glfwDestroyCursor" )]
-        public static extern void glfwDestroyCursor( IntPtr cursor );
-        [DllImport( _lib, EntryPoint = "glfwSetCursor" )]
-        public static extern void glfwSetCursor( IntPtr window, IntPtr cursor );
-        [DllImport( _lib, EntryPoint = "glfwSetKeyCallback" )]
-        public static extern GLFWkeyfun glfwSetKeyCallback( IntPtr window, GLFWkeyfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetCharCallback" )]
-        public static extern GLFWcharfun glfwSetCharCallback( IntPtr window, GLFWcharfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetCharModsCallback" )]
-        public static extern GLFWcharmodsfun glfwSetCharModsCallback( IntPtr window, GLFWcharmodsfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetMouseButtonCallback" )]
-        public static extern GLFWmousebuttonfun glfwSetMouseButtonCallback( IntPtr window, GLFWmousebuttonfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetCursorPosCallback" )]
-        public static extern GLFWcursorposfun glfwSetCursorPosCallback( IntPtr window, GLFWcursorposfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetCursorEnterCallback" )]
-        public static extern GLFWcursorenterfun glfwSetCursorEnterCallback( IntPtr window, GLFWcursorenterfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetScrollCallback" )]
-        public static extern GLFWscrollfun glfwSetScrollCallback( IntPtr window, GLFWscrollfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetDropCallback" )]
-        public static extern GLFWdropfun glfwSetDropCallback( IntPtr window, GLFWdropfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwJoystickPresent" )]
-        public static extern int glfwJoystickPresent( int joy );
-        [DllImport( _lib, EntryPoint = "glfwGetJoystickAxes" )]
-        public static extern IntPtr glfwGetJoystickAxes( int joy, ref int count );
-        [DllImport( _lib, EntryPoint = "glfwGetJoystickButtons" )]
-        public static extern IntPtr glfwGetJoystickButtons( int joy, ref int count );
-        [DllImport( _lib, EntryPoint = "glfwGetJoystickName" )]
-        public static extern IntPtr glfwGetJoystickName( int joy );
-        [DllImport( _lib, EntryPoint = "glfwSetJoystickCallback" )]
-        public static extern GLFWjoystickfun glfwSetJoystickCallback( GLFWjoystickfun cbfun );
-        [DllImport( _lib, EntryPoint = "glfwSetClipboardString" )]
-        public static extern void glfwSetClipboardString( IntPtr window, [In] [MarshalAs( UnmanagedType.LPStr )] string @string );
-        [DllImport( _lib, EntryPoint = "glfwGetClipboardString" )]
-        public static extern IntPtr glfwGetClipboardString( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwGetTime" )]
-        public static extern double glfwGetTime();
-        [DllImport( _lib, EntryPoint = "glfwSetTime" )]
-        public static extern void glfwSetTime( double time );
-        [DllImport( _lib, EntryPoint = "glfwGetTimerValue" )]
-        public static extern uint glfwGetTimerValue();
-        [DllImport( _lib, EntryPoint = "glfwGetTimerFrequency" )]
-        public static extern uint glfwGetTimerFrequency();
-        [DllImport( _lib, EntryPoint = "glfwMakeContextCurrent" )]
-        public static extern void glfwMakeContextCurrent( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwGetCurrentContext" )]
-        public static extern IntPtr glfwGetCurrentContext();
-        [DllImport( _lib, EntryPoint = "glfwSwapBuffers" )]
-        public static extern void glfwSwapBuffers( IntPtr window );
-        [DllImport( _lib, EntryPoint = "glfwSwapInterval" )]
-        public static extern void glfwSwapInterval( int interval );
-        [DllImport( _lib, EntryPoint = "glfwExtensionSupported" )]
-        public static extern int glfwExtensionSupported( [In] [MarshalAs( UnmanagedType.LPStr )] string extension );
-        [DllImport( _lib, EntryPoint = "glfwGetProcAddress" )]
-        public static extern IntPtr glfwGetProcAddress( [In] [MarshalAs( UnmanagedType.LPStr )] string procname );
-        [DllImport( _lib, EntryPoint = "glfwVulkanSupported" )]
-        public static extern int glfwVulkanSupported();
-        [DllImport( _lib, EntryPoint = "glfwGetRequiredInstanceExtensions" )]
-        public static extern IntPtr glfwGetRequiredInstanceExtensions( ref uint count );
+        public static void csglLoadGlfw()
+        {
+            if ( __linux__ )
+                _glfwHnd = csglDllLoad( GLFWLinux );
+            else
+                _glfwHnd = csglDllLoad( GLFWWindows );
+
+            csglDllLinkAllDelegates( typeof( Glfw3 ), _glfwHnd );
+        }
+
+        public static PFNGLFWINITPROC glfwInit;
+        public static PFNGLFWTERMINATEPROC glfwTerminate;
+        public static PFNGLFWGETVERSIONPROC glfwGetVersion;
+        public static PFNGLFWGETVERSIONSTRINGPROC glfwGetVersionString;
+        public static PFNGLFWSETERRORCALLBACKPROC glfwSetErrorCallback;
+        public static PFNGLFWGETMONITORSPROC glfwGetMonitors;
+        public static PFNGLFWGETPRIMARYMONITORPROC glfwGetPrimaryMonitor;
+        public static PFNGLFWGETMONITORPOSPROC glfwGetMonitorPos;
+        public static PFNGLFWGETMONITORPHYSICALSIZEPROC glfwGetMonitorPhysicalSize;
+        public static PFNGLFWGETMONITORNAMEPROC glfwGetMonitorName;
+        public static PFNGLFWSETMONITORCALLBACKPROC glfwSetMonitorCallback;
+        public static PFNGLFWGETVIDEOMODESPROC glfwGetVideoModes;
+        public static PFNGLFWGETVIDEOMODEPROC glfwGetVideoMode;
+        public static PFNGLFWSETGAMMAPROC glfwSetGamma;
+        public static PFNGLFWGETGAMMARAMPPROC glfwGetGammaRamp;
+        public static PFNGLFWSETGAMMARAMPPROC glfwSetGammaRamp;
+        public static PFNGLFWDEFAULTWINDOWHINTSPROC glfwDefaultWindowHints;
+        public static PFNGLFWWINDOWHINTPROC glfwWindowHint;
+        public static PFNGLFWCREATEWINDOWPROC glfwCreateWindow;
+        public static PFNGLFWDESTROYWINDOWPROC glfwDestroyWindow;
+        public static PFNGLFWWINDOWSHOULDCLOSEPROC glfwWindowShouldClose;
+        public static PFNGLFWSETWINDOWSHOULDCLOSEPROC glfwSetWindowShouldClose;
+        public static PFNGLFWSETWINDOWTITLEPROC glfwSetWindowTitle;
+        public static PFNGLFWSETWINDOWICONPROC glfwSetWindowIcon;
+        public static PFNGLFWGETWINDOWPOSPROC glfwGetWindowPos;
+        public static PFNGLFWSETWINDOWPOSPROC glfwSetWindowPos;
+        public static PFNGLFWGETWINDOWSIZEPROC glfwGetWindowSize;
+        public static PFNGLFWSETWINDOWSIZELIMITSPROC glfwSetWindowSizeLimits;
+        public static PFNGLFWSETWINDOWASPECTRATIOPROC glfwSetWindowAspectRatio;
+        public static PFNGLFWSETWINDOWSIZEPROC glfwSetWindowSize;
+        public static PFNGLFWGETFRAMEBUFFERSIZEPROC glfwGetFramebufferSize;
+        public static PFNGLFWGETWINDOWFRAMESIZEPROC glfwGetWindowFrameSize;
+        public static PFNGLFWICONIFYWINDOWPROC glfwIconifyWindow;
+        public static PFNGLFWRESTOREWINDOWPROC glfwRestoreWindow;
+        public static PFNGLFWMAXIMIZEWINDOWPROC glfwMaximizeWindow;
+        public static PFNGLFWSHOWWINDOWPROC glfwShowWindow;
+        public static PFNGLFWHIDEWINDOWPROC glfwHideWindow;
+        public static PFNGLFWFOCUSWINDOWPROC glfwFocusWindow;
+        public static PFNGLFWGETWINDOWMONITORPROC glfwGetWindowMonitor;
+        public static PFNGLFWSETWINDOWMONITORPROC glfwSetWindowMonitor;
+        public static PFNGLFWGETWINDOWATTRIBPROC glfwGetWindowAttrib;
+        public static PFNGLFWSETWINDOWUSERPOINTERPROC glfwSetWindowUserPointer;
+        public static PFNGLFWGETWINDOWUSERPOINTERPROC glfwGetWindowUserPointer;
+        public static PFNGLFWSETWINDOWPOSCALLBACKPROC glfwSetWindowPosCallback;
+        public static PFNGLFWSETWINDOWSIZECALLBACKPROC glfwSetWindowSizeCallback;
+        public static PFNGLFWSETWINDOWCLOSECALLBACKPROC glfwSetWindowCloseCallback;
+        public static PFNGLFWSETWINDOWREFRESHCALLBACKPROC glfwSetWindowRefreshCallback;
+        public static PFNGLFWSETWINDOWFOCUSCALLBACKPROC glfwSetWindowFocusCallback;
+        public static PFNGLFWSETWINDOWICONIFYCALLBACKPROC glfwSetWindowIconifyCallback;
+        public static PFNGLFWSETFRAMEBUFFERSIZECALLBACKPROC glfwSetFramebufferSizeCallback;
+        public static PFNGLFWPOLLEVENTSPROC glfwPollEvents;
+        public static PFNGLFWWAITEVENTSPROC glfwWaitEvents;
+        public static PFNGLFWWAITEVENTSTIMEOUTPROC glfwWaitEventsTimeout;
+        public static PFNGLFWPOSTEMPTYEVENTPROC glfwPostEmptyEvent;
+        public static PFNGLFWGETINPUTMODEPROC glfwGetInputMode;
+        public static PFNGLFWSETINPUTMODEPROC glfwSetInputMode;
+        public static PFNGLFWGETKEYNAMEPROC glfwGetKeyName;
+        public static PFNGLFWGETKEYPROC glfwGetKey;
+        public static PFNGLFWGETMOUSEBUTTONPROC glfwGetMouseButton;
+        public static PFNGLFWGETCURSORPOSPROC glfwGetCursorPos;
+        public static PFNGLFWSETCURSORPOSPROC glfwSetCursorPos;
+        public static PFNGLFWCREATECURSORPROC glfwCreateCursor;
+        public static PFNGLFWCREATESTANDARDCURSORPROC glfwCreateStandardCursor;
+        public static PFNGLFWDESTROYCURSORPROC glfwDestroyCursor;
+        public static PFNGLFWSETCURSORPROC glfwSetCursor;
+        public static PFNGLFWSETKEYCALLBACKPROC glfwSetKeyCallback;
+        public static PFNGLFWSETCHARCALLBACKPROC glfwSetCharCallback;
+        public static PFNGLFWSETCHARMODSCALLBACKPROC glfwSetCharModsCallback;
+        public static PFNGLFWSETMOUSEBUTTONCALLBACKPROC glfwSetMouseButtonCallback;
+        public static PFNGLFWSETCURSORPOSCALLBACKPROC glfwSetCursorPosCallback;
+        public static PFNGLFWSETCURSORENTERCALLBACKPROC glfwSetCursorEnterCallback;
+        public static PFNGLFWSETSCROLLCALLBACKPROC glfwSetScrollCallback;
+        public static PFNGLFWSETDROPCALLBACKPROC glfwSetDropCallback;
+        public static PFNGLFWJOYSTICKPRESENTPROC glfwJoystickPresent;
+        public static PFNGLFWGETJOYSTICKAXESPROC glfwGetJoystickAxes;
+        public static PFNGLFWGETJOYSTICKBUTTONSPROC glfwGetJoystickButtons;
+        public static PFNGLFWGETJOYSTICKNAMEPROC glfwGetJoystickName;
+        public static PFNGLFWSETJOYSTICKCALLBACKPROC glfwSetJoystickCallback;
+        public static PFNGLFWSETCLIPBOARDSTRINGPROC glfwSetClipboardString;
+        public static PFNGLFWGETCLIPBOARDSTRINGPROC glfwGetClipboardString;
+        public static PFNGLFWGETTIMEPROC glfwGetTime;
+        public static PFNGLFWSETTIMEPROC glfwSetTime;
+        public static PFNGLFWGETTIMERVALUEPROC glfwGetTimerValue;
+        public static PFNGLFWGETTIMERFREQUENCYPROC glfwGetTimerFrequency;
+        public static PFNGLFWMAKECONTEXTCURRENTPROC glfwMakeContextCurrent;
+        public static PFNGLFWGETCURRENTCONTEXTPROC glfwGetCurrentContext;
+        public static PFNGLFWSWAPBUFFERSPROC glfwSwapBuffers;
+        public static PFNGLFWSWAPINTERVALPROC glfwSwapInterval;
+        public static PFNGLFWEXTENSIONSUPPORTEDPROC glfwExtensionSupported;
+        public static PFNGLFWGETPROCADDRESSPROC glfwGetProcAddress;
+        public static PFNGLFWVULKANSUPPORTEDPROC glfwVulkanSupported;
+        public static PFNGLFWGETREQUIREDINSTANCEEXTENSIONSPROC glfwGetRequiredInstanceExtensions;
         #endregion
     }
 
@@ -4328,32 +4460,9 @@ namespace CSGL
     using static OpenGL;
     using static Glfw3;
     using static CSGL;
+    using static DLL;
 
     #region Prototypes
-    public struct CSGLVertex
-    {
-        public float X;
-        public float Y;
-        public float R;
-        public float G;
-        public float B;
-        public float A;
-        public float U;
-        public float V;
-
-        public CSGLVertex( float x, float y, float r, float g, float b, float a, float u, float v )
-        {
-            X = x;
-            Y = y;
-            R = r;
-            G = g;
-            B = b;
-            A = a;
-            U = u;
-            V = v;
-        }
-    }
-
     public enum CSGLWindowStyle : int
     {
         Normal = 1,
@@ -4371,7 +4480,7 @@ namespace CSGL
     {
         #region Extension
         #region Fields
-        private static IntPtr NULL = (IntPtr)0;
+        public static IntPtr NULL = (IntPtr)0;
 
         private static Type _glType = typeof( OpenGL );
         private static Type _delegateType = typeof( MulticastDelegate );
@@ -4386,7 +4495,7 @@ namespace CSGL
             {
                 if ( fi.FieldType.BaseType == _delegateType )
                 {
-                    fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( Glfw3.glfwGetProcAddress( fi.Name ), fi.FieldType ) );
+                    fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( glfwGetProcAddress( fi.Name ), fi.FieldType ) );
                 }
             }
 
@@ -4413,29 +4522,20 @@ namespace CSGL
 
             glBindBuffer( target, BUFF );
 
+#if UNSAFE 
             unsafe
             {
                 fixed ( void* ptrData = data )
                     glBufferData( target, sizeof( float ) * data.Length, (IntPtr)ptrData, usage );
             }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( float ) );
+            Marshal.Copy( data, 0, ptrData, data.Length );
 
-            return BUFF;
-        }
+            glBufferData( target, sizeof( float ) * data.Length, ptrData, usage );
 
-        public static uint csglBuffer( CSGLVertex[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
-        {
-            uint BUFF = buffer;
-
-            if ( BUFF == 0 )
-                glGenBuffers( 1, ref BUFF );
-
-            glBindBuffer( target, BUFF );
-
-            unsafe
-            {
-                fixed ( void* ptrData = data )
-                    glBufferData( target, sizeof( CSGLVertex ) * data.Length, (IntPtr)ptrData, usage );
-            }
+            Marshal.FreeHGlobal( ptrData );
+#endif
 
             return BUFF;
         }
@@ -4449,47 +4549,20 @@ namespace CSGL
 
             glBindBuffer( target, BUFF );
 
+#if UNSAFE 
             unsafe
             {
                 fixed ( void* ptrData = data )
                     glBufferData( target, sizeof( double ) * data.Length, (IntPtr)ptrData, usage );
             }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( double ) );
+            Marshal.Copy( data, 0, ptrData, data.Length );
 
-            return BUFF;
-        }
+            glBufferData( target, sizeof( double ) * data.Length, ptrData, usage );
 
-        public static uint csglBuffer( uint[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
-        {
-            uint BUFF = buffer;
-
-            if ( BUFF == 0 )
-                glGenBuffers( 1, ref BUFF );
-
-            glBindBuffer( target, BUFF );
-
-            unsafe
-            {
-                fixed ( void* ptrData = data )
-                    glBufferData( target, sizeof( uint ) * data.Length, (IntPtr)ptrData, usage );
-            }
-
-            return BUFF;
-        }
-
-        public static uint csglBuffer( int[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
-        {
-            uint BUFF = buffer;
-
-            if ( BUFF == 0 )
-                glGenBuffers( 1, ref BUFF );
-
-            glBindBuffer( target, BUFF );
-
-            unsafe
-            {
-                fixed ( void* ptrData = data )
-                    glBufferData( target, sizeof( int ) * data.Length, (IntPtr)ptrData, usage );
-            }
+            Marshal.FreeHGlobal( ptrData );
+#endif
 
             return BUFF;
         }
@@ -4503,11 +4576,182 @@ namespace CSGL
 
             glBindBuffer( target, BUFF );
 
+#if UNSAFE 
             unsafe
             {
                 fixed ( void* ptrData = data )
                     glBufferData( target, sizeof( byte ) * data.Length, (IntPtr)ptrData, usage );
             }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length );
+            Marshal.Copy( data, 0, ptrData, data.Length );
+
+            glBufferData( target, data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+
+            return BUFF;
+        }
+
+        public static uint csglBuffer( ushort[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
+        {
+            uint BUFF = buffer;
+
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
+
+#if UNSAFE 
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( target, sizeof( ushort ) * data.Length, (IntPtr)ptrData, usage );
+            }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( ushort ) );
+            Marshal.Copy( (short[])(Array)data, 0, ptrData, data.Length );
+
+            glBufferData( target, sizeof( ushort ) * data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+
+            return BUFF;
+        }
+
+        public static uint csglBuffer( short[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
+        {
+            uint BUFF = buffer;
+
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
+
+#if UNSAFE 
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( target, sizeof( short ) * data.Length, (IntPtr)ptrData, usage );
+            }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( short ) );
+            Marshal.Copy( data, 0, ptrData, data.Length );
+
+            glBufferData( target, sizeof( short ) * data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+
+            return BUFF;
+        }
+
+        public static uint csglBuffer( uint[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
+        {
+            uint BUFF = buffer;
+
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
+
+#if UNSAFE 
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( target, sizeof( uint ) * data.Length, (IntPtr)ptrData, usage );
+            }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( uint ) );
+            Marshal.Copy( (int[])(Array)data, 0, ptrData, data.Length );
+            
+            glBufferData( target, sizeof( uint ) * data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+
+            return BUFF;
+        }
+
+        public static uint csglBuffer( int[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
+        {
+            uint BUFF = buffer;
+
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
+
+#if UNSAFE 
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( target, sizeof( int ) * data.Length, (IntPtr)ptrData, usage );
+            }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( int ) );
+            Marshal.Copy( data, 0, ptrData, data.Length );
+
+            glBufferData( target, sizeof( int ) * data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+
+            return BUFF;
+        }
+
+        public static uint csglBuffer( ulong[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
+        {
+            uint BUFF = buffer;
+
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
+
+#if UNSAFE 
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( target, sizeof( ulong ) * data.Length, (IntPtr)ptrData, usage );
+            }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( ulong ) );
+            Marshal.Copy( (long[])(Array)data, 0, ptrData, data.Length );
+
+            glBufferData( target, sizeof( ulong ) * data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+
+            return BUFF;
+        }
+
+        public static uint csglBuffer( long[] data, uint buffer = 0, uint target = GL_ARRAY_BUFFER, uint usage = GL_STATIC_DRAW )
+        {
+            uint BUFF = buffer;
+
+            if ( BUFF == 0 )
+                glGenBuffers( 1, ref BUFF );
+
+            glBindBuffer( target, BUFF );
+
+#if UNSAFE 
+            unsafe
+            {
+                fixed ( void* ptrData = data )
+                    glBufferData( target, sizeof( long ) * data.Length, (IntPtr)ptrData, usage );
+            }
+#else
+            IntPtr ptrData = Marshal.AllocHGlobal( data.Length * sizeof( long ) );
+            Marshal.Copy( data, 0, ptrData, data.Length );
+
+            glBufferData( target, sizeof( long ) * data.Length, ptrData, usage );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
 
             return BUFF;
         }
@@ -5508,25 +5752,83 @@ namespace CSGL
         private uint _vbo;
         private uint _vao;
 
-        public float Width;
-        public float Height;
-
         #region Abstracted
         /* Vertex map
-            _vertices = new float [] {
-                0   1                       2           3           4           5               6   7
-                _x, _y,                     _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     0f, 0f,
+        _vertices = new float [] {
+            0   1                       2   3    
+            _x, _y,                     0f, 0f,
 
-                8           9               10          11          12          13              14  15
-                _x + _width, _y,            _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     1f, 0f,
+            4            5              6   7
+            _x + _width, _y,            1f, 0f,
 
-                16          17              18          19          20          21              22  23
-                _x + width, _y + height,    _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     1f, 1f,
+            8           9               10  11
+            _x + width, _y + height,    1f, 1f,
 
-                24  25  27                  26          28          29          30              31  32
-                _x, _y + height,            _rgba[ 0 ], _rgba[ 1 ], _rgba[ 2 ], _rgba[ 4 ],     0f, 1f,
-            };
-         */
+            12  13                      14  15
+            _x, _y + height,            0f, 1f,
+        };
+        */
+
+        public float[] Vertices { get { return _vertices; } }
+        public uint Texture { get { return _texture; } }
+
+        private float _x;
+        public float X
+        {
+            get { return _x; }
+
+            set
+            {
+                _x = value;
+                _vertices[ 0 ] = value;
+                _vertices[ 4 ] = _width + value;
+                _vertices[ 8 ] = _width + value;
+                _vertices[ 12 ] = value;
+            }
+        }
+
+        private float _y;
+        public float Y
+        {
+            get { return _y; }
+
+            set
+            {
+                _y = value;
+                _vertices[ 1 ] = value;
+                _vertices[ 5 ] = value;
+                _vertices[ 9 ] = _height + value;
+                _vertices[ 13 ] = _height + value;
+            }
+        }
+
+        private float _width;
+        public float Width
+        {
+            get { return _width; }
+
+            set
+            {
+                _width = value;
+                _vertices[ 4 ] = _x + value;
+                _vertices[ 8 ] = _x + value;
+            }
+        }
+        public float OriginalWidth { get; private set; }
+
+        private float _height;
+        public float Height
+        {
+            get { return _height; }
+
+            set
+            {
+                _height = value;
+                _vertices[ 9 ] = _y + value;
+                _vertices[ 13 ] = _y + value;
+            }
+        }
+        public float OriginalHeight { get; private set; }
         #endregion
         #endregion
 
@@ -5535,14 +5837,17 @@ namespace CSGL
         {
             _texture = texture;
 
-            Width = width;
-            Height = height;
+            _width = width;
+            _height = height;
+
+            OriginalWidth = width;
+            OriginalHeight = height;
 
             _vertices = new float[] {
-                0f, 0f,             0f, 0f,
-                width, 0f,          1f, 0f,
-                width, height,      1f, 1f,
-                0f, height,         0f, 1f
+                0f, 0f,             0f, 0f, // 0
+                width, 0f,          1f, 0f, // 4
+                width, height,      1f, 1f, // 8
+                0f, height,         0f, 1f  // 12
             };
 
             _vao = 0;
@@ -5567,25 +5872,230 @@ namespace CSGL
         #endregion
 
         #region Methods
+        public void Upload()
+        {
+            csglBuffer( _vertices, _vbo );
+        }
+
         public void Draw()
         {
             glBindTexture( GL_TEXTURE_2D, _texture );
             glBindVertexArray( _vao );
             glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
         }
+
+        public void Bind()
+        {
+            glBindTexture( GL_TEXTURE_2D, _texture );
+            glBindVertexArray( _vao );
+        }
+
+        public void Raw()
+        {
+            glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
+        }
         #endregion
+    }
+
+    public static class CSGLSpriteBatch
+    {
+        private static float[] _vertices = new float[ 0 ];
+        private static uint[] _textures = new uint[ 0 ];
+
+        private const int VARRAY_LENGTH = 16 * sizeof( float );
+        private const int HARD_LIMIT = 268435456 * sizeof( float ); // This would take up 1024MB of RAM
+
+        private static int _length = 0;
+        private static uint _texture = 0;
+
+        private static uint _vbo = 0;
+        private static uint _vao = 0;
+
+        #region Methods
+        private static void _reallocVerts()
+        {
+            int newAlloc = _vertices.Length * 2;
+
+            if ( newAlloc > HARD_LIMIT )
+                throw new OutOfMemoryException( "Vertices buffer too large" );
+
+            float[] verts = new float[ newAlloc ];
+            Buffer.BlockCopy( _vertices, 0, verts, 0, _vertices.Length * sizeof( float ) );
+
+            _vertices = verts;
+        }
+
+        private static void _reallocTexs()
+        {
+            int newAlloc = _textures.Length * 2;
+
+            uint[] texs = new uint[ newAlloc ];
+            Buffer.BlockCopy( _textures, 0, texs, 0, _textures.Length * sizeof( uint ) );
+
+            _textures = texs;
+        }
+
+        public static void Begin( int amount = 0 )
+        {
+            amount = amount > 0 ? amount : 1;
+
+            _length = 0;
+
+            if ( _vertices.Length < amount * 16 )
+                _vertices = new float[ amount * 16 ];
+
+            _textures = new uint[ amount ];
+
+            if ( _vbo == 0 )
+                glGenBuffers( 1, ref _vbo );
+
+            if ( _vao == 0 )
+            {
+                glGenVertexArrays( 1, ref _vao );
+
+                glBindVertexArray( _vao );
+
+                csglVertexAttribPointer( 0, 2, GL_FLOAT, 4 * sizeof( float ) );
+                glEnableVertexAttribArray( 0 );
+
+                csglVertexAttribPointer( 1, 2, GL_FLOAT, 4 * sizeof( float ), 2 * sizeof( float ) );
+                glEnableVertexAttribArray( 1 );
+            }
+            else
+                glBindVertexArray( _vao );
+
+            glBindBuffer( GL_ARRAY_BUFFER, _vbo );
+        }
+
+        #region Draw
+        public static void Draw( CSGLSprite sprite )
+        {
+            if ( _vertices.Length < _length * 16 + 1 )
+                _reallocVerts();
+
+            if ( _textures.Length < _length + 1 )
+                _reallocTexs();
+
+#if UNSAFE
+            unsafe
+            {
+                fixed( void* srcPtr = sprite.Vertices )
+                {
+                    fixed ( void* dstPtr = _vertices )
+                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
+                }
+            }
+#else
+            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_LENGTH, VARRAY_LENGTH );
+#endif
+
+            _textures[ _length ] = sprite.Texture;
+            _length++;
+        }
+
+        public static void Draw( CSGLSprite sprite, float x, float y )
+        {
+            if ( _vertices.Length < _length * 16 + 1 )
+                _reallocVerts();
+
+            if ( _textures.Length < _length + 1 )
+                _reallocTexs();
+
+            sprite.X = x;
+            sprite.Y = y;
+
+#if UNSAFE
+            unsafe
+            {
+                fixed ( void* srcPtr = sprite.Vertices )
+                {
+                    fixed ( void* dstPtr = _vertices )
+                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
+                }
+            }
+#else
+            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_LENGTH, VARRAY_LENGTH );
+#endif
+
+            _textures[ _length ] = sprite.Texture;
+            _length++;
+        }
+
+        public static void Draw( CSGLSprite sprite, float x, float y, float w, float h )
+        {
+            if ( _vertices.Length < _length * 16 + 1 )
+                _reallocVerts();
+
+            if ( _textures.Length < _length + 1 )
+                _reallocTexs();
+
+            sprite.X = x;
+            sprite.Y = y;
+            sprite.Width = w;
+            sprite.Height = h;
+
+#if UNSAFE
+            unsafe
+            {
+                fixed ( void* srcPtr = sprite.Vertices )
+                {
+                    fixed ( void* dstPtr = _vertices )
+                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
+                }
+            }
+#else
+            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_LENGTH, VARRAY_LENGTH );
+#endif
+
+            _textures[ _length ] = sprite.Texture;
+            _length++;
+        }
+#endregion
+
+        public static void End()
+        {
+#if UNSAFE
+            unsafe
+            {
+                fixed( void* ptrData = _vertices )
+                    glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * _length, (IntPtr)ptrData, GL_DYNAMIC_DRAW );
+            }
+#else
+            int length = sizeof( float ) * _length;
+
+            IntPtr ptrData = Marshal.AllocHGlobal( length );
+            Marshal.Copy( _vertices, 0, ptrData, length );
+
+            glBufferData( GL_ARRAY_BUFFER, length, ptrData, GL_DYNAMIC_DRAW );
+
+            Marshal.FreeHGlobal( ptrData );
+#endif
+            int brk = 0;
+
+            for ( int i = 0; i < _length; i++ )
+            {
+                if( _texture != _textures[ i ] )
+                {
+                    _texture = _textures[ i ];
+                    glBindTexture( GL_TEXTURE_2D, _texture );
+                }
+
+                //glDrawArrays( GL_TRIANGLE_FAN, i * 16, 4 );
+            }
+        }
+#endregion
     }
 
     public class CSGLWindow
     {
-        #region Fields
+#region Fields
         private IntPtr _glfwWindow;
         public IntPtr Pointer { get { return _glfwWindow; } }
 
         private double _lastDrawTime;
         private double _lastUpdatetime;
 
-        #region Abstracted
+#region Abstracted
         private int _x;
         public int X
         {
@@ -5713,9 +6223,9 @@ namespace CSGL
                 }
             }
         }
-        #endregion
+#endregion
 
-        #region Events
+#region Events
         public event GLFWkeyfun OnKeyboard;
         public event GLFWcursorposfun OnCursorMoved;
         public event GLFWcursorenterfun OnCursorEnteredLeft;
@@ -5724,10 +6234,10 @@ namespace CSGL
 
         public event CSGLDrawEvent OnDraw;
         public event CSGLUpdateEvent OnUpdate;
-        #endregion
-        #endregion
+#endregion
+#endregion
 
-        #region Constructor
+#region Constructor
         public CSGLWindow( int width = 640, int height = 480, string title = "CSGLWindow" )
         {
             glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
@@ -5749,16 +6259,16 @@ namespace CSGL
             _height = height;
             _title = title;
         }
-        #endregion
+#endregion
 
-        #region Destructor
+#region Destructor
         ~CSGLWindow()
         {
             glfwDestroyWindow( _glfwWindow );
         }
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
         public void MakeContextCurrent()
         {
             glfwMakeContextCurrent( _glfwWindow );
@@ -5797,7 +6307,7 @@ namespace CSGL
                 Thread.Sleep( 1 );
             }
         }
-        #endregion
+#endregion
     }
 }
 #endregion
