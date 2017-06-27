@@ -72,7 +72,7 @@ namespace CSGL
         {
             get
             {
-                if( !_linuxset )
+                if ( !_linuxset )
                 {
                     int p = (int)Environment.OSVersion.Platform;
                     _linux = ( p == 4 ) || ( p == 6 ) || ( p == 128 );
@@ -4954,7 +4954,7 @@ namespace CSGL
         {
             float[] result = new float[ from.Length ];
             Buffer.BlockCopy( from, 0, result, 0, from.Length * sizeof( float ) );
-            
+
             return result;
         }
 
@@ -5244,7 +5244,7 @@ namespace CSGL
         {
             int rows = (int)( matrix.Length / (float)stride );
 
-            for( int i = 0; i < rows; i++ )
+            for ( int i = 0; i < rows; i++ )
             {
                 for ( int j = 0; j < stride; j++ )
                     matrix[ i * stride + j ] *= ( i < vector.Length ? vector[ i ] : 1 );
@@ -5256,7 +5256,7 @@ namespace CSGL
             int last = matrix.Length - stride;
             int min = vector.Length < matrix.Length ? vector.Length : matrix.Length;
 
-            for( int i = 0; i < min; i++ )
+            for ( int i = 0; i < min; i++ )
             {
                 for ( int j = 0; j < stride; j++ )
                     matrix[ last + j ] += matrix[ i * stride + j ] * vector[ i ];
@@ -5979,7 +5979,7 @@ namespace CSGL
 #if UNSAFE
             unsafe
             {
-                fixed( void* srcPtr = sprite.Vertices )
+                fixed ( void* srcPtr = sprite.Vertices )
                 {
                     fixed ( void* dstPtr = _vertices )
                         csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
@@ -6050,14 +6050,14 @@ namespace CSGL
             _textures[ _length ] = sprite.Texture;
             _length++;
         }
-#endregion
+        #endregion
 
         public static void End()
         {
 #if UNSAFE
             unsafe
             {
-                fixed( void* ptrData = _vertices )
+                fixed ( void* ptrData = _vertices )
                     glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * _length, (IntPtr)ptrData, GL_DYNAMIC_DRAW );
             }
 #else
@@ -6074,7 +6074,7 @@ namespace CSGL
 
             for ( int i = 0; i < _length; i++ )
             {
-                if( _texture != _textures[ i ] )
+                if ( _texture != _textures[ i ] )
                 {
                     _texture = _textures[ i ];
                     glBindTexture( GL_TEXTURE_2D, _texture );
@@ -6083,19 +6083,19 @@ namespace CSGL
                 //glDrawArrays( GL_TRIANGLE_FAN, i * 16, 4 );
             }
         }
-#endregion
+        #endregion
     }
 
     public class CSGLWindow
     {
-#region Fields
+        #region Fields
         private IntPtr _glfwWindow;
         public IntPtr Pointer { get { return _glfwWindow; } }
 
         private double _lastDrawTime;
         private double _lastUpdatetime;
 
-#region Abstracted
+        #region Abstracted
         private int _x;
         public int X
         {
@@ -6223,9 +6223,9 @@ namespace CSGL
                 }
             }
         }
-#endregion
+        #endregion
 
-#region Events
+        #region Events
         public event GLFWkeyfun OnKeyboard;
         public event GLFWcursorposfun OnCursorMoved;
         public event GLFWcursorenterfun OnCursorEnteredLeft;
@@ -6234,10 +6234,10 @@ namespace CSGL
 
         public event CSGLDrawEvent OnDraw;
         public event CSGLUpdateEvent OnUpdate;
-#endregion
-#endregion
+        #endregion
+        #endregion
 
-#region Constructor
+        #region Constructor
         public CSGLWindow( int width = 640, int height = 480, string title = "CSGLWindow" )
         {
             glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
@@ -6259,16 +6259,16 @@ namespace CSGL
             _height = height;
             _title = title;
         }
-#endregion
+        #endregion
 
-#region Destructor
+        #region Destructor
         ~CSGLWindow()
         {
             glfwDestroyWindow( _glfwWindow );
         }
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
         public void MakeContextCurrent()
         {
             glfwMakeContextCurrent( _glfwWindow );
@@ -6307,7 +6307,7 @@ namespace CSGL
                 Thread.Sleep( 1 );
             }
         }
-#endregion
+        #endregion
     }
 }
 #endregion
