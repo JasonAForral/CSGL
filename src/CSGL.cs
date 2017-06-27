@@ -6058,7 +6058,7 @@ namespace CSGL
             unsafe
             {
                 fixed ( void* ptrVerts = _vertices )
-                    glBufferData( GL_ARRAY_BUFFER, VARRAY_LENGTH * _length, (IntPtr)ptrVerts, GL_STATIC_DRAW );
+                    glBufferData( GL_ARRAY_BUFFER, VARRAY_LENGTH * _length, (IntPtr)ptrVerts, GL_DYNAMIC_DRAW );
             }
 #else
             int length = sizeof( float ) * _length;
