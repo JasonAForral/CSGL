@@ -5949,6 +5949,8 @@ namespace CSGL
             if ( _vbo == 0 )
                 glGenBuffers( 1, ref _vbo );
 
+            glBindBuffer( GL_ARRAY_BUFFER, _vbo );
+
             if ( _vao == 0 )
             {
                 glGenVertexArrays( 1, ref _vao );
@@ -5963,8 +5965,6 @@ namespace CSGL
             }
             else
                 glBindVertexArray( _vao );
-
-            glBindBuffer( GL_ARRAY_BUFFER, _vbo );
         }
 
         #region Draw
@@ -6057,8 +6057,8 @@ namespace CSGL
 #if UNSAFE
             unsafe
             {
-                fixed ( void* ptrData = _vertices )
-                    glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * _length, (IntPtr)ptrData, GL_DYNAMIC_DRAW );
+                fixed ( void* ptrVerts = _vertices )
+                    glBufferData( GL_ARRAY_BUFFER, VARRAY_LENGTH * _length, (IntPtr)ptrVerts, GL_STATIC_DRAW );
             }
 #else
             int length = sizeof( float ) * _length;
@@ -6079,7 +6079,7 @@ namespace CSGL
                     glBindTexture( GL_TEXTURE_2D, _texture );
                 }
 
-                glDrawArrays( GL_TRIANGLE_FAN, i * 16, 4 );
+                glDrawArrays( GL_TRIANGLE_FAN, i * 4, 4 );
             }
         }
         #endregion
