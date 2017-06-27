@@ -6070,7 +6070,6 @@ namespace CSGL
 
             Marshal.FreeHGlobal( ptrData );
 #endif
-            int brk = 0;
 
             for ( int i = 0; i < _length; i++ )
             {
@@ -6080,7 +6079,7 @@ namespace CSGL
                     glBindTexture( GL_TEXTURE_2D, _texture );
                 }
 
-                //glDrawArrays( GL_TRIANGLE_FAN, i * 16, 4 );
+                glDrawArrays( GL_TRIANGLE_FAN, i * 16, 4 );
             }
         }
         #endregion
