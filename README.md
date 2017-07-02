@@ -18,6 +18,7 @@ using static CSGL.OpenGL; // gl*
 `using static` requires **C#6** or higher.
  - Create an OpenGL context:
 ```csharp
+csglLoadGlfw();
 glfwInit();
 glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 ); // Change this to your targeted major version
 glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 5 ); // Change this to your targeted minor version
