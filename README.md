@@ -29,7 +29,7 @@ glfwMakeContextCurrent( window );
 ```  
   - Load OpenGL:  
 ```csharp
-csglLoad();
+csglLoadGL();
 ```
 You can now use OpenGL!
 
