@@ -58,7 +58,7 @@ namespace CSGL
         [DllImport( "libdl.so" )]
         private static extern IntPtr dlsym( IntPtr handle, string symbol );
 
-        [DllImport( "libc.so" )]
+        [DllImport( "libc.so.6" )]
         private static extern void memcpy( IntPtr dest, IntPtr src, uint n );
 
         const int RTLD_NOW = 2;
@@ -76,6 +76,7 @@ namespace CSGL
                 {
                     int p = (int)Environment.OSVersion.Platform;
                     _linux = ( p == 4 ) || ( p == 6 ) || ( p == 128 );
+                    _linuxset = true;
                 }
 
                 return _linux;
@@ -659,8 +660,6 @@ namespace CSGL
 
     public static class OpenGL
     {
-        // Comment out starting at the OpenGL version above the one you would like to use
-
         #region OpenGL 1.0 + OpenGL 1.1
         #region Constants
         public const uint GL_ACCUM = 256;
@@ -2947,7 +2946,6 @@ namespace CSGL
         public static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
         public static PFNGLISVERTEXARRAYPROC glIsVertexArray;
         #endregion
-
         #endregion
 
         #region OpenGL 3.1
@@ -3241,7 +3239,6 @@ namespace CSGL
         public static PFNGLVERTEXATTRIBP4UIPROC glVertexAttribP4ui;
         public static PFNGLVERTEXATTRIBP4UIVPROC glVertexAttribP4uiv;
         #endregion
-
         #endregion
 
         #region OpenGL 4.0
@@ -4484,20 +4481,80 @@ namespace CSGL
 
         private static Type _glType = typeof( OpenGL );
         private static Type _delegateType = typeof( MulticastDelegate );
+        public static int CSGL_GLVERSION = 0;
         #endregion
 
         #region Methods
-        public static bool csglLoad()
+        public static bool csglLoadGL()
         {
+            #region Loader
             FieldInfo[] fields = _glType.GetFields( BindingFlags.Public | BindingFlags.Static );
 
             foreach ( FieldInfo fi in fields )
             {
                 if ( fi.FieldType.BaseType == _delegateType )
                 {
-                    fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( glfwGetProcAddress( fi.Name ), fi.FieldType ) );
+                    IntPtr ptr = glfwGetProcAddress( fi.Name );
+
+                    if ( ptr != IntPtr.Zero )
+                        fi.SetValue( null, Marshal.GetDelegateForFunctionPointer( ptr, fi.FieldType ) );
                 }
             }
+            #endregion
+
+            #region Detect version
+            CSGL_GLVERSION = 110;
+
+            if ( glDrawRangeElements != null )
+                CSGL_GLVERSION = 120;
+
+            if ( glActiveTexture != null )
+                CSGL_GLVERSION = 130;
+
+            if ( glBlendFuncSeparate != null )
+                CSGL_GLVERSION = 140;
+
+            if ( glGenQueries != null )
+                CSGL_GLVERSION = 150;
+
+            if ( glBlendEquationSeparate != null )
+                CSGL_GLVERSION = 200;
+
+            if ( glUniformMatrix2x3fv != null )
+                CSGL_GLVERSION = 210;
+
+            if ( glColorMaski != null )
+                CSGL_GLVERSION = 300;
+
+            if ( glDrawArraysInstanced != null )
+                CSGL_GLVERSION = 310;
+
+            if ( glDrawElementsBaseVertex != null )
+                CSGL_GLVERSION = 320;
+
+            if ( glBindFragDataLocationIndexed != null )
+                CSGL_GLVERSION = 330;
+
+            if ( glMinSampleShading != null )
+                CSGL_GLVERSION = 400;
+
+            if ( glReleaseShaderCompiler != null )
+                CSGL_GLVERSION = 410;
+
+            if ( glDrawArraysInstancedBaseInstance != null )
+                CSGL_GLVERSION = 420;
+
+            if ( glClearBufferData != null )
+                CSGL_GLVERSION = 430;
+
+            if ( glBufferStorage != null )
+                CSGL_GLVERSION = 440;
+
+            if ( glClipControl != null )
+                CSGL_GLVERSION = 450;
+            #endregion
+
+            Console.WriteLine( "Linked 'OpenGL' -> VERSION {0}", CSGL_GLVERSION );
 
             return true;
         }
@@ -4865,23 +4922,39 @@ namespace CSGL
         #region csglTexture
         private static Stack<uint> _availTexPtrs = new Stack<uint>();
 
-        public static uint csglTexture( int width, int height, IntPtr pixels, uint externalFormat = GL_RGBA )
+        public static uint csglTexture( int width, int height, IntPtr pixels, uint externalFormat = GL_RGBA, bool generateMipmaps = true, uint texture = 0 )
         {
-            uint texture = 0;
-
-            if ( _availTexPtrs.Count > 0 )
-                texture = _availTexPtrs.Pop();
-            else
-                glGenTextures( 1, ref texture );
+            if ( texture == 0 )
+            {
+                if ( _availTexPtrs.Count > 0 )
+                    texture = _availTexPtrs.Pop();
+                else
+                    glGenTextures( 1, ref texture );
+            }
 
             glBindTexture( GL_TEXTURE_2D, texture );
 
-            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (int)GL_REPEAT );
-            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (int)GL_REPEAT );
-            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (int)GL_LINEAR );
+            if ( CSGL_GLVERSION < 300 & generateMipmaps )
+            {
+                glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4 );
+                glTexParameteri( GL_TEXTURE_2D, 0x8191, GL_TRUE );
+            }
+
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (int)GL_CLAMP_TO_EDGE );
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (int)GL_CLAMP_TO_EDGE );
+            
+            if( generateMipmaps )
+                glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (int)GL_LINEAR_MIPMAP_NEAREST );
+            else
+                glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (int)GL_LINEAR );
+
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (int)GL_NEAREST );
 
             glTexImage2D( GL_TEXTURE_2D, 0, (int)GL_RGBA, width, height, 0, externalFormat, GL_UNSIGNED_BYTE, pixels );
+
+            if( CSGL_GLVERSION > 210 & generateMipmaps )
+                glGenerateMipmap( GL_TEXTURE_2D );
+
             csglAssert();
 
             return texture;
@@ -5755,23 +5828,110 @@ namespace CSGL
         #region Abstracted
         /* Vertex map
         _vertices = new float [] {
-            0   1                       2   3    
-            _x, _y,                     0f, 0f,
+            0   1                       2   3       4   5   6   7
+            _x, _y,                     0f, 0f,     1f, 1f, 1f, 1f,
 
-            4            5              6   7
-            _x + _width, _y,            1f, 0f,
+            8            9              10  11      12  13  14  15
+            _x + _width, _y,            1f, 0f,     1f, 1f, 1f, 1f,
 
-            8           9               10  11
-            _x + width, _y + height,    1f, 1f,
+            16          17              18  19      20  21  22  23
+            _x + width, _y + height,    1f, 1f,     1f, 1f, 1f, 1f,
 
-            12  13                      14  15
-            _x, _y + height,            0f, 1f,
+            24  25                      26  27      28  29  30  31
+            _x, _y,                     0f, 0f,     1f, 1f, 1f, 1f,
+
+            32  33                      34  35      36  37  38  39
+            _x, _y + height,            0f, 1f,     1f, 1f, 1f, 1f,
+
+            40          41              42  43      44  45  46  47
+            _x + width, _y + height,    1f, 1f      1f, 1f, 1f, 1f,
+
         };
         */
 
         public float[] Vertices { get { return _vertices; } }
         public uint Texture { get { return _texture; } }
 
+#if UNSAFE
+        private float _x;
+        public unsafe float X
+        {
+            get { return _x; }
+
+            set
+            {
+                _x = value;
+
+                fixed ( float* ptrVerts = _vertices )
+                {
+                    ptrVerts[ 0 ] = value;
+                    ptrVerts[ 8 ] = _width + value;
+                    ptrVerts[ 16 ] = _width + value;
+                    ptrVerts[ 24 ] = value;
+                    ptrVerts[ 32 ] = value;
+                    ptrVerts[ 40 ] = _width + value;
+                }
+            }
+        }
+
+        private float _y;
+        public unsafe float Y
+        {
+            get { return _y; }
+
+            set
+            {
+                _y = value;
+
+                fixed ( float* ptrVerts = _vertices )
+                {
+                    ptrVerts[ 1 ] = value;
+                    ptrVerts[ 9 ] = value;
+                    ptrVerts[ 17 ] = _height + value;
+                    ptrVerts[ 25 ] = value;
+                    ptrVerts[ 33 ] = _height + value;
+                    ptrVerts[ 41 ] = _height + value;
+                }
+            }
+        }
+
+        private float _width;
+        public unsafe float Width
+        {
+            get { return _width; }
+
+            set
+            {
+                _width = value;
+
+                fixed ( float* ptrVerts = _vertices )
+                {
+                    ptrVerts[ 8 ] = _x + value;
+                    ptrVerts[ 16 ] = _x + value;
+                    ptrVerts[ 40 ] = _x + value;
+                }
+            }
+        }
+
+
+        private float _height;
+        public unsafe float Height
+        {
+            get { return _height; }
+
+            set
+            {
+                _height = value;
+
+                fixed ( float* ptrVerts = _vertices )
+                {
+                    ptrVerts[ 17 ] = _y + value;
+                    ptrVerts[ 33 ] = _y + value;
+                    ptrVerts[ 41 ] = _y + value;
+                }
+            }
+        }
+#else
         private float _x;
         public float X
         {
@@ -5780,10 +5940,13 @@ namespace CSGL
             set
             {
                 _x = value;
+
                 _vertices[ 0 ] = value;
-                _vertices[ 4 ] = _width + value;
                 _vertices[ 8 ] = _width + value;
-                _vertices[ 12 ] = value;
+                _vertices[ 16 ] = _width + value;
+                _vertices[ 24 ] = value;
+                _vertices[ 32 ] = value;
+                _vertices[ 40 ] = _width + value;
             }
         }
 
@@ -5795,10 +5958,13 @@ namespace CSGL
             set
             {
                 _y = value;
+
                 _vertices[ 1 ] = value;
-                _vertices[ 5 ] = value;
-                _vertices[ 9 ] = _height + value;
-                _vertices[ 13 ] = _height + value;
+                _vertices[ 9 ] = value;
+                _vertices[ 17 ] = _height + value;
+                _vertices[ 25 ] = value;
+                _vertices[ 33 ] = _height + value;
+                _vertices[ 41 ] = _height + value;
             }
         }
 
@@ -5810,11 +5976,12 @@ namespace CSGL
             set
             {
                 _width = value;
-                _vertices[ 4 ] = _x + value;
+
                 _vertices[ 8 ] = _x + value;
+                _vertices[ 16 ] = _x + value;
+                _vertices[ 40 ] = _x + value;
             }
         }
-        public float OriginalWidth { get; private set; }
 
         private float _height;
         public float Height
@@ -5824,10 +5991,15 @@ namespace CSGL
             set
             {
                 _height = value;
-                _vertices[ 9 ] = _y + value;
-                _vertices[ 13 ] = _y + value;
+
+                _vertices[ 17 ] = _y + value;
+                _vertices[ 33 ] = _y + value;
+                _vertices[ 41 ] = _y + value;
             }
         }
+#endif
+
+        public float OriginalWidth { get; private set; }
         public float OriginalHeight { get; private set; }
         #endregion
         #endregion
@@ -5843,11 +6015,13 @@ namespace CSGL
             OriginalWidth = width;
             OriginalHeight = height;
 
-            _vertices = new float[] {
-                0f, 0f,             0f, 0f, // 0
-                width, 0f,          1f, 0f, // 4
-                width, height,      1f, 1f, // 8
-                0f, height,         0f, 1f  // 12
+            _vertices = new float[ 48 ] {
+                0f, 0f,             0f, 0f,     1f, 1f, 1f, 1f,
+                width, 0f,          1f, 0f,     1f, 1f, 1f, 1f,
+                width, height,      1f, 1f,     1f, 1f, 1f, 1f,
+                0f, 0f,             0f, 0f,     1f, 1f, 1f, 1f,
+                0f, height,         0f, 1f,     1f, 1f, 1f, 1f,
+                width, height,      1f, 1f,     1f, 1f, 1f, 1f
             };
 
             _vao = 0;
@@ -5856,11 +6030,14 @@ namespace CSGL
 
             _vbo = csglBuffer( _vertices );
 
-            csglVertexAttribPointer( 0, 2, GL_FLOAT, 4 * sizeof( float ) );
+            csglVertexAttribPointer( 0, 2, GL_FLOAT, 8 * sizeof( float ) );
             glEnableVertexAttribArray( 0 );
 
-            csglVertexAttribPointer( 1, 2, GL_FLOAT, 4 * sizeof( float ), 2 * sizeof( float ) );
+            csglVertexAttribPointer( 1, 2, GL_FLOAT, 8 * sizeof( float ), 2 * sizeof( float ) );
             glEnableVertexAttribArray( 1 );
+
+            csglVertexAttribPointer( 2, 4, GL_FLOAT, 8 * sizeof( float ), 4 * sizeof( float ) );
+            glEnableVertexAttribArray( 2 );
         }
         #endregion
 
@@ -5881,7 +6058,7 @@ namespace CSGL
         {
             glBindTexture( GL_TEXTURE_2D, _texture );
             glBindVertexArray( _vao );
-            glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
+            glDrawArrays( GL_TRIANGLES, 0, 6 );
         }
 
         public void Bind()
@@ -5894,16 +6071,84 @@ namespace CSGL
         {
             glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
         }
+
+        public void SetColor( float r, float g, float b, float a = 1f, int index = -1 )
+        {
+#if UNSAFE
+            unsafe
+            {
+                int offset = 0;
+
+                if ( index < 0 )
+                {
+                    fixed ( float* ptrVerts = _vertices )
+                    {
+                        for ( int i = 0; i < 6; i++ )
+                        {
+                            offset = i * 8;
+
+                            ptrVerts[ offset + 4 ] = r;
+                            ptrVerts[ offset + 5 ] = g;
+                            ptrVerts[ offset + 6 ] = b;
+                            ptrVerts[ offset + 7 ] = a;
+                        }
+                    }
+                }
+                else
+                {
+                    fixed ( float* ptrVerts = _vertices )
+                    {
+                        offset = index * 8;
+
+                        ptrVerts[ offset + 4 ] = r;
+                        ptrVerts[ offset + 5 ] = g;
+                        ptrVerts[ offset + 6 ] = b;
+                        ptrVerts[ offset + 7 ] = a;
+                    }
+                }
+            }
+#else
+            int offset = 0;
+
+            if ( index < 0 )
+            {
+                for( int i = 0; i < 6; i++ )
+                {
+                    offset = i * 8;
+
+                    _vertices[ offset + 4 ] = r;
+                    _vertices[ offset + 5 ] = g;
+                    _vertices[ offset + 6 ] = b;
+                    _vertices[ offset + 7 ] = a;
+                }
+            }
+            else
+            {
+                offset = index * 8;
+
+                _vertices[ offset + 4 ] = r;
+                _vertices[ offset + 5 ] = g;
+                _vertices[ offset + 6 ] = b;
+                _vertices[ offset + 7 ] = a;
+            }
+#endif
+        }
         #endregion
     }
 
+    /// <summary>
+    /// Not ready for usage, yet.
+    /// </summary>
     public static class CSGLSpriteBatch
     {
         private static float[] _vertices = new float[ 0 ];
         private static uint[] _textures = new uint[ 0 ];
 
-        private const int VARRAY_LENGTH = 16 * sizeof( float );
-        private const int HARD_LIMIT = 268435456 * sizeof( float ); // This would take up 1024MB of RAM
+        private static int[,] _index = new int[ 0, 0 ];
+
+        private const int VARRAY_LENGTH = 48;
+        private const int VARRAY_SIZE = VARRAY_LENGTH * sizeof( float );
+        private const int HARD_LIMIT = 4194304; // This would take up 768MB of RAM
 
         private static int _length = 0;
         private static uint _texture = 0;
@@ -5920,7 +6165,19 @@ namespace CSGL
                 throw new OutOfMemoryException( "Vertices buffer too large" );
 
             float[] verts = new float[ newAlloc ];
+
+#if UNSAFE
+            unsafe
+            {
+                fixed ( void* ptrSrc = _vertices )
+                {
+                    fixed ( void* ptrDst = verts )
+                        csglMemcpy( (IntPtr)ptrDst, (IntPtr)ptrSrc, (uint)_vertices.Length * sizeof( float ) );
+                }
+            }
+#else
             Buffer.BlockCopy( _vertices, 0, verts, 0, _vertices.Length * sizeof( float ) );
+#endif
 
             _vertices = verts;
         }
@@ -5930,19 +6187,46 @@ namespace CSGL
             int newAlloc = _textures.Length * 2;
 
             uint[] texs = new uint[ newAlloc ];
+
+#if UNSAFE
+            unsafe
+            {
+                fixed ( void* ptrSrc = _textures )
+                {
+                    fixed ( void* ptrDst = texs )
+                        csglMemcpy( (IntPtr)ptrDst, (IntPtr)ptrSrc, (uint)_textures.Length * sizeof( uint ) );
+                }
+            }
+#else
             Buffer.BlockCopy( _textures, 0, texs, 0, _textures.Length * sizeof( uint ) );
+#endif
 
             _textures = texs;
         }
+
+        private static void _reallocIndex()
+        {
+            int newAlloc = _index.GetLength( 0 ) * 2;
+
+            int[,] idx = new int[ newAlloc, 2 ];
+            Buffer.BlockCopy( _index, 0, idx, 0, _index.Length * sizeof( int ) );
+
+            _index = idx;
+        }
+
+        // TODO: actually sort _vertices!
 
         public static void Begin( int amount = 0 )
         {
             amount = amount > 0 ? amount : 1;
 
             _length = 0;
+            _texture = 0;
 
-            if ( _vertices.Length < amount * 16 )
-                _vertices = new float[ amount * 16 ];
+            if ( _vertices.Length < amount * VARRAY_LENGTH )
+                _vertices = new float[ amount * VARRAY_LENGTH ];
+
+            _index = new int[ amount, 2 ];
 
             _textures = new uint[ amount ];
 
@@ -5957,11 +6241,14 @@ namespace CSGL
 
                 glBindVertexArray( _vao );
 
-                csglVertexAttribPointer( 0, 2, GL_FLOAT, 4 * sizeof( float ) );
+                csglVertexAttribPointer( 0, 2, GL_FLOAT, 8 * sizeof( float ) );
                 glEnableVertexAttribArray( 0 );
 
-                csglVertexAttribPointer( 1, 2, GL_FLOAT, 4 * sizeof( float ), 2 * sizeof( float ) );
+                csglVertexAttribPointer( 1, 2, GL_FLOAT, 8 * sizeof( float ), 2 * sizeof( float ) );
                 glEnableVertexAttribArray( 1 );
+
+                csglVertexAttribPointer( 2, 4, GL_FLOAT, 8 * sizeof( float ), 4 * sizeof( float ) );
+                glEnableVertexAttribArray( 2 );
             }
             else
                 glBindVertexArray( _vao );
@@ -5970,11 +6257,20 @@ namespace CSGL
         #region Draw
         public static void Draw( CSGLSprite sprite )
         {
-            if ( _vertices.Length < _length * 16 + 1 )
+            if ( _vertices.Length < _length * VARRAY_LENGTH + 1 )
                 _reallocVerts();
 
             if ( _textures.Length < _length + 1 )
                 _reallocTexs();
+
+            if ( _index.GetLength( 0 ) < _length + 1 )
+                _reallocIndex();
+
+            if( _texture != sprite.Texture )
+            {
+                _texture = sprite.Texture;
+                glBindTexture( GL_TEXTURE_2D, _texture );
+            }
 
 #if UNSAFE
             unsafe
@@ -5982,73 +6278,34 @@ namespace CSGL
                 fixed ( void* srcPtr = sprite.Vertices )
                 {
                     fixed ( void* dstPtr = _vertices )
-                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
+                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_SIZE, (IntPtr)srcPtr, VARRAY_SIZE );
                 }
             }
 #else
-            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_LENGTH, VARRAY_LENGTH );
+            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_SIZE, VARRAY_SIZE );
 #endif
 
             _textures[ _length ] = sprite.Texture;
+
             _length++;
         }
 
         public static void Draw( CSGLSprite sprite, float x, float y )
         {
-            if ( _vertices.Length < _length * 16 + 1 )
-                _reallocVerts();
-
-            if ( _textures.Length < _length + 1 )
-                _reallocTexs();
-
             sprite.X = x;
             sprite.Y = y;
 
-#if UNSAFE
-            unsafe
-            {
-                fixed ( void* srcPtr = sprite.Vertices )
-                {
-                    fixed ( void* dstPtr = _vertices )
-                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
-                }
-            }
-#else
-            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_LENGTH, VARRAY_LENGTH );
-#endif
-
-            _textures[ _length ] = sprite.Texture;
-            _length++;
+            Draw( sprite );
         }
 
         public static void Draw( CSGLSprite sprite, float x, float y, float w, float h )
         {
-            if ( _vertices.Length < _length * 16 + 1 )
-                _reallocVerts();
-
-            if ( _textures.Length < _length + 1 )
-                _reallocTexs();
-
             sprite.X = x;
             sprite.Y = y;
             sprite.Width = w;
             sprite.Height = h;
 
-#if UNSAFE
-            unsafe
-            {
-                fixed ( void* srcPtr = sprite.Vertices )
-                {
-                    fixed ( void* dstPtr = _vertices )
-                        csglMemcpy( (IntPtr)dstPtr + _length * VARRAY_LENGTH, (IntPtr)srcPtr, VARRAY_LENGTH );
-                }
-            }
-#else
-            Buffer.BlockCopy( sprite.Vertices, 0, _vertices, _length * VARRAY_LENGTH, VARRAY_LENGTH );
-#endif
-
-            _textures[ _length ] = sprite.Texture;
-            _length++;
+            Draw( sprite );
         }
         #endregion
 
@@ -6058,29 +6315,20 @@ namespace CSGL
             unsafe
             {
                 fixed ( void* ptrVerts = _vertices )
-                    glBufferData( GL_ARRAY_BUFFER, VARRAY_LENGTH * _length, (IntPtr)ptrVerts, GL_DYNAMIC_DRAW );
+                    glBufferData( GL_ARRAY_BUFFER, VARRAY_SIZE * _length, (IntPtr)ptrVerts, GL_DYNAMIC_DRAW );
             }
 #else
-            int length = sizeof( float ) * _length;
+            int length = VARRAY_SIZE * _length;
 
             IntPtr ptrData = Marshal.AllocHGlobal( length );
-            Marshal.Copy( _vertices, 0, ptrData, length );
+            Marshal.Copy( _vertices, 0, ptrData, VARRAY_LENGTH * _length );
 
             glBufferData( GL_ARRAY_BUFFER, length, ptrData, GL_DYNAMIC_DRAW );
 
             Marshal.FreeHGlobal( ptrData );
 #endif
 
-            for ( int i = 0; i < _length; i++ )
-            {
-                if ( _texture != _textures[ i ] )
-                {
-                    _texture = _textures[ i ];
-                    glBindTexture( GL_TEXTURE_2D, _texture );
-                }
-
-                glDrawArrays( GL_TRIANGLE_FAN, i * 4, 4 );
-            }
+            glDrawArrays( GL_TRIANGLES, 0, _length * 6 );
         }
         #endregion
     }
@@ -6231,8 +6479,8 @@ namespace CSGL
         public event GLFWmousebuttonfun OnMouse;
         public event GLFWscrollfun OnScroll;
 
-        public event CSGLDrawEvent OnDraw;
-        public event CSGLUpdateEvent OnUpdate;
+        public CSGLDrawEvent OnDraw;
+        public CSGLUpdateEvent OnUpdate;
         #endregion
         #endregion
 
@@ -6246,8 +6494,8 @@ namespace CSGL
 
             glfwShowWindow( _glfwWindow );
 
-            if ( glViewport == null )
-                csglLoad();
+            if ( CSGL_GLVERSION == 0 )
+                csglLoadGL();
 
             glViewport( 0, 0, width, height );
 
@@ -6263,7 +6511,7 @@ namespace CSGL
         #region Destructor
         ~CSGLWindow()
         {
-            glfwDestroyWindow( _glfwWindow );
+            
         }
         #endregion
 
@@ -6291,8 +6539,6 @@ namespace CSGL
 
             while ( glfwWindowShouldClose( _glfwWindow ) == 0 )
             {
-                glfwPollEvents();
-
                 glClear( GL_COLOR_BUFFER_BIT );
 
                 OnUpdate?.Invoke( this, glfwGetTime() - _lastUpdatetime );
@@ -6301,10 +6547,16 @@ namespace CSGL
                 OnDraw?.Invoke( this, glfwGetTime() - _lastDrawTime );
                 _lastDrawTime = glfwGetTime();
 
-                glfwSwapBuffers( _glfwWindow );
-
                 Thread.Sleep( 1 );
+
+                glfwSwapBuffers( _glfwWindow );
+                glfwPollEvents();
             }
+        }
+
+        public void Dispose()
+        {
+            glfwDestroyWindow( _glfwWindow );
         }
         #endregion
     }
