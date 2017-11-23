@@ -11,7 +11,7 @@ CSGL provides a P/Invoke wrapper for GLFW3 as well, as it uses it internally to 
 ### Usage
  - (Optional) Add using directives:
 ```csharp
-using static CSGL;        // csgl*
+using static CSGL.CSGL;   // csgl*
 using static CSGL.Glfw3;  // glfw*
 using static CSGL.OpenGL; // gl*
 ```  
@@ -45,8 +45,7 @@ Some optimized methods **require** an `unsafe` context, compile with `UNSAFE` sy
 
 ### Cross-platform
 CSGL can be ran under Mono, this can be achieved by:
- - Renaming `private const string _lib` in `CSGL.cs`, to for example `libglfw.so.3`.
- - Or making use of [DllMaps](http://www.mono-project.com/docs/advanced/pinvoke/dllmap/).
+ - Having the latest GLFW3 binary in your executable directory, named `libglfw.so`
 
 # GLFW
 The GLFW GitGub repository can be found [here](https://github.com/glfw/glfw).  
