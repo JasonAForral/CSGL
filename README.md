@@ -11,7 +11,7 @@ CSGL provides a P/Invoke wrapper for GLFW3 as well, as it uses it internally to 
 ### Usage
  - (Optional) Add using directives:
 ```csharp
-using static CSGL;        // csgl*
+using static CSGL.CSGL;   // csgl*
 using static CSGL.Glfw3;  // glfw*
 using static CSGL.OpenGL; // gl*
 ```  
