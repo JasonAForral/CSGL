@@ -4457,7 +4457,6 @@ namespace CSGL
     using static OpenGL;
     using static Glfw3;
     using static CSGL;
-    using static DLL;
 
     #region Prototypes
     public enum CSGLWindowStyle : int
@@ -6426,6 +6425,7 @@ namespace CSGL
                         IntPtr monitor = glfwGetPrimaryMonitor();
                         IntPtr mode = glfwGetVideoMode( monitor );
 
+#if UNSAFE
                         unsafe
                         {
                             GLFWvidmode* ptrMode = (GLFWvidmode*)mode;
@@ -6433,12 +6433,23 @@ namespace CSGL
                             glfwWindowHint( GLFW_REFRESH_RATE, ptrMode->refreshRate );
 
                             IntPtr _tempWindow = glfwCreateWindow( ptrMode->width, ptrMode->height, _title, monitor, _glfwWindow );
-                            glfwDestroyWindow( _glfwWindow );
-                            _glfwWindow = _tempWindow;
 
                             _width = ptrMode->width;
                             _height = ptrMode->height;
                         }
+#else
+                        GLFWvidmode vidmode = Marshal.PtrToStructure<GLFWvidmode>( mode );
+
+                        glfwWindowHint( GLFW_REFRESH_RATE, vidmode.refreshRate );
+
+                        IntPtr _tempWindow = glfwCreateWindow( vidmode.width, vidmode.height, _title, monitor, _glfwWindow );
+
+                        _width = vidmode.width;
+                        _height = vidmode.height;
+#endif
+
+                        glfwDestroyWindow( _glfwWindow );
+                        _glfwWindow = _tempWindow;
 
                         glfwMakeContextCurrent( _glfwWindow );
                         _setCallbacks();
@@ -6470,9 +6481,9 @@ namespace CSGL
                 }
             }
         }
-        #endregion
+#endregion
 
-        #region Events
+#region Events
         public event GLFWkeyfun OnKeyboard;
         public event GLFWcursorposfun OnCursorMoved;
         public event GLFWcursorenterfun OnCursorEnteredLeft;
@@ -6481,10 +6492,10 @@ namespace CSGL
 
         public CSGLDrawEvent OnDraw;
         public CSGLUpdateEvent OnUpdate;
-        #endregion
-        #endregion
+#endregion
+#endregion
 
-        #region Constructor
+#region Constructor
         public CSGLWindow( int width = 640, int height = 480, string title = "CSGLWindow" )
         {
             glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
@@ -6506,16 +6517,16 @@ namespace CSGL
             _height = height;
             _title = title;
         }
-        #endregion
+#endregion
 
-        #region Destructor
+#region Destructor
         ~CSGLWindow()
         {
             
         }
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
         public void MakeContextCurrent()
         {
             glfwMakeContextCurrent( _glfwWindow );
@@ -6558,7 +6569,7 @@ namespace CSGL
         {
             glfwDestroyWindow( _glfwWindow );
         }
-        #endregion
+#endregion
     }
 }
 #endregion
