@@ -4502,7 +4502,10 @@ namespace CSGL
             #endregion
 
             #region Detect version
-            CSGL_GLVERSION = 110;
+            CSGL_GLVERSION = 0;
+
+            if( glAccum != null )
+                CSGL_GLVERSION = 110;
 
             if ( glDrawRangeElements != null )
                 CSGL_GLVERSION = 120;
@@ -4551,6 +4554,9 @@ namespace CSGL
 
             if ( glClipControl != null )
                 CSGL_GLVERSION = 450;
+
+            if( CSGL_GLVERSION == 0 )
+                throw new Exception( "Could not load OpenGL" );
             #endregion
 
             Console.WriteLine( "Linked 'OpenGL' -> VERSION {0}", CSGL_GLVERSION );
