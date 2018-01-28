@@ -4457,6 +4457,7 @@ namespace CSGL
     using static OpenGL;
     using static Glfw3;
     using static CSGL;
+    using static DLL;
 
     #region Prototypes
     public enum CSGLWindowStyle : int
@@ -6428,6 +6429,7 @@ namespace CSGL
                 {
                     if ( borderless )
                     {
+                        IntPtr _tempWindow = IntPtr.Zero;
                         IntPtr monitor = glfwGetPrimaryMonitor();
                         IntPtr mode = glfwGetVideoMode( monitor );
 
@@ -6438,7 +6440,7 @@ namespace CSGL
 
                             glfwWindowHint( GLFW_REFRESH_RATE, ptrMode->refreshRate );
 
-                            IntPtr _tempWindow = glfwCreateWindow( ptrMode->width, ptrMode->height, _title, monitor, _glfwWindow );
+                            _tempWindow = glfwCreateWindow( ptrMode->width, ptrMode->height, _title, monitor, _glfwWindow );
 
                             _width = ptrMode->width;
                             _height = ptrMode->height;
@@ -6448,7 +6450,7 @@ namespace CSGL
 
                         glfwWindowHint( GLFW_REFRESH_RATE, vidmode.refreshRate );
 
-                        IntPtr _tempWindow = glfwCreateWindow( vidmode.width, vidmode.height, _title, monitor, _glfwWindow );
+                        _tempWindow = glfwCreateWindow( vidmode.width, vidmode.height, _title, monitor, _glfwWindow );
 
                         _width = vidmode.width;
                         _height = vidmode.height;
