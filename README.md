@@ -6,7 +6,12 @@ CSGL provides a P/Invoke wrapper for GLFW3 as well, as it uses it internally to 
  - Add `CSGL.cs` to your project.
  - Skip ahead to `Usage` if you would like to use **OpenGL 4.5**.
  - Open up `CSGL.cs` and start a multiline comment at **the version one above** the OpenGL version you would like to use.
- - End the multiline comment at the end (under the OpenGL 4.5 region).  
+ - End the multiline comment at the end (under the OpenGL 4.5 region).
+ - Make sure `glfw3.dll` or `libglfw.so` is located in your working directory. \*
+ - Make sure that your native libraries target the same platform as the .NET application.
+ 
+ \* *For a slightly more advanced DLL loader, which also supports OSX, consider taking a look at [libwkinterop](https://github.com/ThatOneCheetah/libwkinterop/).*  
+ *(does not include OpenGL macros/"abstraction").*
   
 ### Usage
  - (Optional) Add using directives:
