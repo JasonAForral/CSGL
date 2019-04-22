@@ -10,7 +10,7 @@ CSGL provides a P/Invoke wrapper for GLFW3 as well, as it uses it internally to 
  - Make sure `glfw3.dll` or `libglfw.so` is located in your working directory. \*
  - Make sure that your native libraries target the same platform as the .NET application.
  
- \* *For a slightly more advanced DLL loader, which also supports OSX, consider taking a look at [libwkinterop](https://github.com/ThatOneCheetah/libwkinterop/).*  
+ \* *For a slightly more advanced DLL loader, which also supports OSX, consider taking a look at [LTP.Interop](https://github.com/latet-party/LTP.Interop).*  
  *(does not include OpenGL macros/"abstraction").*
   
 ### Usage
