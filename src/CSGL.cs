@@ -1363,711 +1363,711 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLARRAYELEMENTEXTPROC( int i );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWARRAYSEXTPROC( uint mode, int first, int count );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXPOINTEREXTPROC( int size, uint type, int stride, int count, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMALPOINTEREXTPROC( uint type, int stride, int count, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORPOINTEREXTPROC( int size, uint type, int stride, int count, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXPOINTEREXTPROC( uint type, int stride, int count, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORDPOINTEREXTPROC( int size, uint type, int stride, int count, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEDGEFLAGPOINTEREXTPROC( int stride, int count, [In] [MarshalAs( UnmanagedType.LPStr )] string pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPOINTERVEXTPROC( uint pname, IntPtr[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLARRAYELEMENTARRAYEXTPROC( uint mode, int count, IntPtr pi );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWRANGEELEMENTSWINPROC( uint mode, uint start, uint end, int count, uint type, IntPtr indices );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLADDSWAPHINTRECTWINPROC( int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORTABLEEXTPROC( uint target, uint internalFormat, int width, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORSUBTABLEEXTPROC( uint target, int start, int count, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCOLORTABLEEXTPROC( uint target, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCOLORTABLEPARAMETERIVEXTPROC( uint target, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCOLORTABLEPARAMETERFVEXTPROC( uint target, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLACCUMPROC( uint op, float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLALPHAFUNCPROC( uint func, float alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLARETEXTURESRESIDENTPROC( int n, uint[] textures, IntPtr residences );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLARRAYELEMENTPROC( int i );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBEGINPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDTEXTUREPROC( uint target, uint texture );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBITMAPPROC( int width, int height, float xorig, float yorig, float xmove, float ymove, [In] [MarshalAs( UnmanagedType.LPStr )] string bitmap );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDFUNCPROC( uint sfactor, uint dfactor );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCALLLISTPROC( uint list );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCALLLISTSPROC( int n, uint type, IntPtr lists );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARPROC( uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARACCUMPROC( float red, float green, float blue, float alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARCOLORPROC( float red, float green, float blue, float alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARDEPTHPROC( double depth );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARINDEXPROC( float c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARSTENCILPROC( int s );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLIPPLANEPROC( uint plane, double[] equation );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3BPROC( byte red, byte green, byte blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3BVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3DPROC( double red, double green, double blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3FPROC( float red, float green, float blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3IPROC( int red, int green, int blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3SPROC( short red, short green, short blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3UBPROC( byte red, byte green, byte blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3UBVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3UIPROC( uint red, uint green, uint blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3UIVPROC( uint[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3USPROC( ushort red, ushort green, ushort blue );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR3USVPROC( ushort[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4BPROC( byte red, byte green, byte blue, byte alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4BVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4DPROC( double red, double green, double blue, double alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4FPROC( float red, float green, float blue, float alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4IPROC( int red, int green, int blue, int alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4SPROC( short red, short green, short blue, short alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4UBPROC( byte red, byte green, byte blue, byte alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4UBVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4UIPROC( uint red, uint green, uint blue, uint alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4UIVPROC( uint[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4USPROC( ushort red, ushort green, ushort blue, ushort alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLOR4USVPROC( ushort[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORMASKPROC( byte red, byte green, byte blue, byte alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORMATERIALPROC( uint face, uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORPOINTERPROC( int size, uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYPIXELSPROC( int x, int y, int width, int height, uint type );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXIMAGE1DPROC( uint target, int level, uint internalFormat, int x, int y, int width, int border );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXIMAGE2DPROC( uint target, int level, uint internalFormat, int x, int y, int width, int height, int border );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXSUBIMAGE1DPROC( uint target, int level, int xoffset, int x, int y, int width );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXSUBIMAGE2DPROC( uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCULLFACEPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETELISTSPROC( uint list, int range );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETETEXTURESPROC( int n, uint[] textures );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEPTHFUNCPROC( uint func );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEPTHMASKPROC( byte flag );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEPTHRANGEPROC( double zNear, double zFar );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISABLEPROC( uint cap );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISABLECLIENTSTATEPROC( uint array );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWARRAYSPROC( uint mode, int first, int count );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWBUFFERPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSPROC( uint mode, int count, uint type, IntPtr indices );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWPIXELSPROC( int width, int height, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEDGEFLAGPROC( byte flag );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEDGEFLAGPOINTERPROC( int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEDGEFLAGVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string flag );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENABLEPROC( uint cap );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENABLECLIENTSTATEPROC( uint array );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENDPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENDLISTPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD1DPROC( double u );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD1DVPROC( double[] u );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD1FPROC( float u );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD1FVPROC( float[] u );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD2DPROC( double u, double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD2DVPROC( double[] u );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD2FPROC( float u, float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALCOORD2FVPROC( float[] u );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALMESH1PROC( uint mode, int i1, int i2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALMESH2PROC( uint mode, int i1, int i2, int j1, int j2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALPOINT1PROC( int i );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLEVALPOINT2PROC( int i, int j );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFEEDBACKBUFFERPROC( int size, uint type, float[] buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFINISHPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFLUSHPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFOGFPROC( uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFOGFVPROC( uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFOGIPROC( uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFOGIVPROC( uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRONTFACEPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRUSTUMPROC( double left, double right, double bottom, double top, double zNear, double zFar );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGENLISTSPROC( int range );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENTEXTURESPROC( int n, ref uint textures );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETBOOLEANVPROC( uint pname, IntPtr parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCLIPPLANEPROC( uint plane, double[] equation );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETDOUBLEVPROC( uint pname, double[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGETERRORPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETFLOATVPROC( uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETINTEGERVPROC( uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETLIGHTFVPROC( uint light, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETLIGHTIVPROC( uint light, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETMAPDVPROC( uint target, uint query, double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETMAPFVPROC( uint target, uint query, float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETMAPIVPROC( uint target, uint query, int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETMATERIALFVPROC( uint face, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETMATERIALIVPROC( uint face, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPIXELMAPFVPROC( uint map, float[] values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPIXELMAPUIVPROC( uint map, uint[] values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPIXELMAPUSVPROC( uint map, ushort[] values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPOINTERVPROC( uint pname, ref IntPtr parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPOLYGONSTIPPLEPROC( IntPtr mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXENVFVPROC( uint target, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXENVIVPROC( uint target, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXGENDVPROC( uint coord, uint pname, double[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXGENFVPROC( uint coord, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXGENIVPROC( uint coord, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXIMAGEPROC( uint target, int level, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXLEVELPARAMETERFVPROC( uint target, int level, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXLEVELPARAMETERIVPROC( uint target, int level, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXPARAMETERFVPROC( uint target, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXPARAMETERIVPROC( uint target, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLHINTPROC( uint target, uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXMASKPROC( uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXPOINTERPROC( uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXDPROC( double c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXDVPROC( double[] c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXFPROC( float c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXFVPROC( float[] c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXIPROC( int c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXIVPROC( int[] c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXSPROC( short c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXSVPROC( short[] c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXUBPROC( byte c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINDEXUBVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string c );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINITNAMESPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINTERLEAVEDARRAYSPROC( uint format, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISENABLEDPROC( uint cap );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISLISTPROC( uint list );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISTEXTUREPROC( uint texture );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTMODELFPROC( uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTMODELFVPROC( uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTMODELIPROC( uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTMODELIVPROC( uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTFPROC( uint light, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTFVPROC( uint light, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTIPROC( uint light, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLIGHTIVPROC( uint light, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLINESTIPPLEPROC( int factor, ushort pattern );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLINEWIDTHPROC( float width );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLISTBASEPROC( uint b );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLOADIDENTITYPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLOADMATRIXDPROC( double[] m );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLOADMATRIXFPROC( float[] m );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLOADNAMEPROC( uint name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLOGICOPPROC( uint opcode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAP1DPROC( uint target, double u1, double u2, int stride, int order, double[] points );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAP1FPROC( uint target, float u1, float u2, int stride, int order, float[] points );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAP2DPROC( uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, double[] points );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAP2FPROC( uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, float[] points );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAPGRID1DPROC( int un, double u1, double u2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAPGRID1FPROC( int un, float u1, float u2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAPGRID2DPROC( int un, double u1, double u2, int vn, double v1, double v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMAPGRID2FPROC( int un, float u1, float u2, int vn, float v1, float v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMATERIALFPROC( uint face, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMATERIALFVPROC( uint face, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMATERIALIPROC( uint face, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMATERIALIVPROC( uint face, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMATRIXMODEPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTMATRIXDPROC( double[] m );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTMATRIXFPROC( float[] m );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNEWLISTPROC( uint list, uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3BPROC( byte nx, byte ny, byte nz );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3BVPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3DPROC( double nx, double ny, double nz );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3FPROC( float nx, float ny, float nz );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3IPROC( int nx, int ny, int nz );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3SPROC( short nx, short ny, short nz );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMAL3SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNORMALPOINTERPROC( uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLORTHOPROC( double left, double right, double bottom, double top, double zNear, double zFar );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPASSTHROUGHPROC( float token );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELMAPFVPROC( uint map, int mapsize, float[] values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELMAPUIVPROC( uint map, int mapsize, uint[] values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELMAPUSVPROC( uint map, int mapsize, ushort[] values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELSTOREFPROC( uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELSTOREIPROC( uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELTRANSFERFPROC( uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELTRANSFERIPROC( uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPIXELZOOMPROC( float xfactor, float yfactor );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOINTSIZEPROC( float size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOLYGONMODEPROC( uint face, uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOLYGONOFFSETPROC( float factor, float units );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOLYGONSTIPPLEPROC( [In] [MarshalAs( UnmanagedType.LPStr )] string mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOPATTRIBPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOPCLIENTATTRIBPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOPMATRIXPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOPNAMEPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPRIORITIZETEXTURESPROC( int n, uint[] textures, float[] priorities );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPUSHATTRIBPROC( uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPUSHCLIENTATTRIBPROC( uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPUSHMATRIXPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPUSHNAMEPROC( uint name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2DPROC( double x, double y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2FPROC( float x, float y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2IPROC( int x, int y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2SPROC( short x, short y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS2SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3DPROC( double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3FPROC( float x, float y, float z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3IPROC( int x, int y, int z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3SPROC( short x, short y, short z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS3SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4DPROC( double x, double y, double z, double w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4FPROC( float x, float y, float z, float w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4IPROC( int x, int y, int z, int w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4SPROC( short x, short y, short z, short w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRASTERPOS4SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLREADBUFFERPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLREADPIXELSPROC( int x, int y, int width, int height, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTDPROC( double x1, double y1, double x2, double y2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTDVPROC( double[] v1, double[] v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTFPROC( float x1, float y1, float x2, float y2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTFVPROC( float[] v1, float[] v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTIPROC( int x1, int y1, int x2, int y2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTIVPROC( int[] v1, int[] v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTSPROC( short x1, short y1, short x2, short y2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRECTSVPROC( short[] v1, short[] v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLRENDERMODEPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLROTATEDPROC( double angle, double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLROTATEFPROC( float angle, float x, float y, float z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSCALEDPROC( double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSCALEFPROC( float x, float y, float z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSCISSORPROC( int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSELECTBUFFERPROC( int size, uint[] buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSHADEMODELPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSTENCILFUNCPROC( uint func, int refer, uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSTENCILMASKPROC( uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSTENCILOPPROC( uint fail, uint zfail, uint zpass );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1DPROC( double s );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1FPROC( float s );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1IPROC( int s );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1SPROC( short s );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD1SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2DPROC( double s, double t );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2FPROC( float s, float t );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2IPROC( int s, int t );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2SPROC( short s, short t );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD2SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3DPROC( double s, double t, double r );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3FPROC( float s, float t, float r );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3IPROC( int s, int t, int r );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3SPROC( short s, short t, short r );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD3SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4DPROC( double s, double t, double r, double q );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4FPROC( float s, float t, float r, float q );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4IPROC( int s, int t, int r, int q );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4SPROC( short s, short t, short r, short q );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORD4SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXCOORDPOINTERPROC( int size, uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXENVFPROC( uint target, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXENVFVPROC( uint target, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXENVIPROC( uint target, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXENVIVPROC( uint target, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXGENDPROC( uint coord, uint pname, double param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXGENDVPROC( uint coord, uint pname, double[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXGENFPROC( uint coord, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXGENFVPROC( uint coord, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXGENIPROC( uint coord, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXGENIVPROC( uint coord, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXIMAGE1DPROC( uint target, int level, int internalformat, int width, int border, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXIMAGE2DPROC( uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXPARAMETERFPROC( uint target, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXPARAMETERFVPROC( uint target, uint pname, float[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXPARAMETERIPROC( uint target, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXPARAMETERIVPROC( uint target, uint pname, int[] parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSUBIMAGE1DPROC( uint target, int level, int xoffset, int width, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSUBIMAGE2DPROC( uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTRANSLATEDPROC( double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTRANSLATEFPROC( float x, float y, float z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2DPROC( double x, double y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2FPROC( float x, float y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2IPROC( int x, int y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2SPROC( short x, short y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX2SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3DPROC( double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3FPROC( float x, float y, float z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3IPROC( int x, int y, int z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3SPROC( short x, short y, short z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX3SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4DPROC( double x, double y, double z, double w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4DVPROC( double[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4FPROC( float x, float y, float z, float w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4FVPROC( float[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4IPROC( int x, int y, int z, int w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4IVPROC( int[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4SPROC( short x, short y, short z, short w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEX4SVPROC( short[] v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXPOINTERPROC( int size, uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVIEWPORTPROC( int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLGETSTRINGPROC( uint name );
 		#endregion
 
@@ -2452,13 +2452,13 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWRANGEELEMENTSPROC( uint mode, uint start, uint end, int count, uint type, IntPtr indices );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXIMAGE3DPROC( uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSUBIMAGE3DPROC( uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXSUBIMAGE3DPROC( uint target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height );
 		#endregion
 
@@ -2534,23 +2534,23 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLACTIVETEXTUREPROC( uint texture );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLECOVERAGEPROC( float value, byte invert );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXIMAGE3DPROC( uint target, int level, uint internalformat, int width, int height, int depth, int border, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXIMAGE2DPROC( uint target, int level, uint internalformat, int width, int height, int border, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXIMAGE1DPROC( uint target, int level, uint internalformat, int width, int border, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC( uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC( uint target, int level, int xoffset, int yoffset, int width, int height, uint format, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC( uint target, int level, int xoffset, int width, uint format, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCOMPRESSEDTEXIMAGEPROC( uint target, int level, IntPtr img );
 		#endregion
 
@@ -2598,23 +2598,23 @@ namespace CSGL
 		#endregion
 
 		#region 
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDFUNCSEPARATEPROC( uint sfactorRGB, uint dfactorRGB, uint sfactorAlpha, uint dfactorAlpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTIDRAWARRAYSPROC( uint mode, ref int first, ref int count, int drawcount );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTIDRAWELEMENTSPROC( uint mode, ref int count, uint type, IntPtr indices, int drawcount );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOINTPARAMETERFPROC( uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOINTPARAMETERFVPROC( uint pname, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOINTPARAMETERIPROC( uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOINTPARAMETERIVPROC( uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDCOLORPROC( float red, float green, float blue, float alpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDEQUATIONPROC( uint mode );
 		#endregion
 
@@ -2664,43 +2664,43 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENQUERIESPROC( int n, ref uint ids );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETEQUERIESPROC( int n, ref uint ids );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISQUERYPROC( uint id );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBEGINQUERYPROC( uint target, uint id );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENDQUERYPROC( uint target );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYIVPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYOBJECTIVPROC( uint id, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYOBJECTUIVPROC( uint id, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDBUFFERPROC( uint target, uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETEBUFFERSPROC( int n, ref uint buffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENBUFFERSPROC( int n, ref uint buffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISBUFFERPROC( uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBUFFERDATAPROC( uint target, int size, IntPtr data, uint usage );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBUFFERSUBDATAPROC( uint target, int offset, int size, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETBUFFERSUBDATAPROC( uint target, int offset, int size, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLMAPBUFFERPROC( uint target, uint access );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLUNMAPBUFFERPROC( uint target );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETBUFFERPARAMETERIVPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETBUFFERPOINTERVPROC( uint target, uint pname, ref IntPtr parameters );
 		#endregion
 
@@ -2812,191 +2812,191 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDEQUATIONSEPARATEPROC( uint modeRGB, uint modeAlpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWBUFFERSPROC( int n, ref uint bufs );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSTENCILOPSEPARATEPROC( uint face, uint sfail, uint dpfail, uint dppass );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSTENCILFUNCSEPARATEPROC( uint face, uint func, int refer, uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSTENCILMASKSEPARATEPROC( uint face, uint mask );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLATTACHSHADERPROC( uint program, uint shader );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDATTRIBLOCATIONPROC( uint program, uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPILESHADERPROC( uint shader );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLCREATEPROGRAMPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLCREATESHADERPROC( uint type );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETEPROGRAMPROC( uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETESHADERPROC( uint shader );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDETACHSHADERPROC( uint program, uint shader );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISABLEVERTEXATTRIBARRAYPROC( uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENABLEVERTEXATTRIBARRAYPROC( uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEATTRIBPROC( uint program, uint index, int bufSize, ref int length, ref int size, ref uint type, IntPtr name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEUNIFORMPROC( uint program, uint index, int bufSize, ref int length, ref int size, ref uint type, IntPtr name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETATTACHEDSHADERSPROC( uint program, int maxCount, ref int count, ref uint shaders );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETATTRIBLOCATIONPROC( uint program, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMIVPROC( uint program, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMINFOLOGPROC( uint program, int bufSize, ref int length, IntPtr infoLog );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSHADERIVPROC( uint shader, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSHADERINFOLOGPROC( uint shader, int bufSize, ref int length, IntPtr infoLog );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSHADERSOURCEPROC( uint shader, int bufSize, ref int length, IntPtr source );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETUNIFORMLOCATIONPROC( uint program, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETUNIFORMFVPROC( uint program, int location, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETUNIFORMIVPROC( uint program, int location, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBDVPROC( uint index, uint pname, ref double parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBFVPROC( uint index, uint pname, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBIVPROC( uint index, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBPOINTERVPROC( uint index, uint pname, ref IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISPROGRAMPROC( uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISSHADERPROC( uint shader );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLLINKPROGRAMPROC( uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSHADERSOURCEPROC( uint shader, int count, ref IntPtr str, ref int length );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUSEPROGRAMPROC( uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1FPROC( int location, float v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2FPROC( int location, float v0, float v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3FPROC( int location, float v0, float v1, float v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4FPROC( int location, float v0, float v1, float v2, float v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1IPROC( int location, int v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2IPROC( int location, int v0, int v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3IPROC( int location, int v0, int v1, int v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4IPROC( int location, int v0, int v1, int v2, int v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1FVPROC( int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2FVPROC( int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3FVPROC( int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4FVPROC( int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1IVPROC( int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2IVPROC( int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3IVPROC( int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4IVPROC( int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX2FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX3FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX4FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVALIDATEPROGRAMPROC( uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB1DPROC( uint index, double x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB1DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB1FPROC( uint index, float x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB1FVPROC( uint index, ref float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB1SPROC( uint index, short x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB1SVPROC( uint index, ref short v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB2DPROC( uint index, double x, double y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB2DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB2FPROC( uint index, float x, float y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB2FVPROC( uint index, ref float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB2SPROC( uint index, short x, short y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB2SVPROC( uint index, ref short v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB3DPROC( uint index, double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB3DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB3FPROC( uint index, float x, float y, float z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB3FVPROC( uint index, ref float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB3SPROC( uint index, short x, short y, short z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB3SVPROC( uint index, ref short v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NBVPROC( uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NIVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NSVPROC( uint index, ref short v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NUBPROC( uint index, byte x, byte y, byte z, byte w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NUBVPROC( uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NUIVPROC( uint index, ref uint v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4NUSVPROC( uint index, ref ushort v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4BVPROC( uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4DPROC( uint index, double x, double y, double z, double w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4FPROC( uint index, float x, float y, float z, float w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4FVPROC( uint index, ref float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4IVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4SPROC( uint index, short x, short y, short z, short w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4SVPROC( uint index, ref short v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4UBVPROC( uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4UIVPROC( uint index, ref uint v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIB4USVPROC( uint index, ref ushort v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBPOINTERPROC( uint index, int size, uint type, byte normalized, int stride, IntPtr pointer );
 		#endregion
 
@@ -3118,17 +3118,17 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX2X3FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX3X2FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX2X4FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX4X2FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX3X4FVPROC( int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX4X3FVPROC( int location, int count, byte transpose, ref float value );
 		#endregion
 
@@ -3378,173 +3378,173 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOLORMASKIPROC( uint index, byte r, byte g, byte b, byte a );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETBOOLEANI_VPROC( uint target, uint index, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETINTEGERI_VPROC( uint target, uint index, ref int data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENABLEIPROC( uint target, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISABLEIPROC( uint target, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISENABLEDIPROC( uint target, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBEGINTRANSFORMFEEDBACKPROC( uint primitiveMode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENDTRANSFORMFEEDBACKPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDBUFFERRANGEPROC( uint target, uint index, uint buffer, int offset, int size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDBUFFERBASEPROC( uint target, uint index, uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTRANSFORMFEEDBACKVARYINGSPROC( uint program, int count, IntPtr varyings, uint bufferMode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTRANSFORMFEEDBACKVARYINGPROC( uint program, uint index, int bufSize, ref int length, ref int size, ref uint type, IntPtr name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLAMPCOLORPROC( uint target, uint clamp );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBEGINCONDITIONALRENDERPROC( uint id, uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENDCONDITIONALRENDERPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBIPOINTERPROC( uint index, int size, uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBIIVPROC( uint index, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBIUIVPROC( uint index, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI1IPROC( uint index, int x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI2IPROC( uint index, int x, int y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI3IPROC( uint index, int x, int y, int z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4IPROC( uint index, int x, int y, int z, int w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI1UIPROC( uint index, uint x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI2UIPROC( uint index, uint x, uint y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI3UIPROC( uint index, uint x, uint y, uint z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4UIPROC( uint index, uint x, uint y, uint z, uint w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI1IVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI2IVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI3IVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4IVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI1UIVPROC( uint index, ref uint v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI2UIVPROC( uint index, ref uint v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI3UIVPROC( uint index, ref uint v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4UIVPROC( uint index, ref uint v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4BVPROC( uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4SVPROC( uint index, ref short v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4UBVPROC( uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBI4USVPROC( uint index, ref ushort v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETUNIFORMUIVPROC( uint program, int location, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDFRAGDATALOCATIONPROC( uint program, uint color, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETFRAGDATALOCATIONPROC( uint program, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1UIPROC( int location, uint v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2UIPROC( int location, uint v0, uint v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3UIPROC( int location, uint v0, uint v1, uint v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4UIPROC( int location, uint v0, uint v1, uint v2, uint v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1UIVPROC( int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2UIVPROC( int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3UIVPROC( int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4UIVPROC( int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXPARAMETERIIVPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXPARAMETERIUIVPROC( uint target, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXPARAMETERIIVPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXPARAMETERIUIVPROC( uint target, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARBUFFERIVPROC( uint buffer, int drawbuffer, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARBUFFERUIVPROC( uint buffer, int drawbuffer, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARBUFFERFVPROC( uint buffer, int drawbuffer, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARBUFFERFIPROC( uint buffer, int drawbuffer, float depth, int stencil );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLGETSTRINGIPROC( uint name, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISRENDERBUFFERPROC( uint renderbuffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDRENDERBUFFERPROC( uint target, uint renderbuffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETERENDERBUFFERSPROC( int n, ref uint renderbuffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENRENDERBUFFERSPROC( int n, ref uint renderbuffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRENDERBUFFERSTORAGEPROC( uint target, uint internalformat, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETRENDERBUFFERPARAMETERIVPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISFRAMEBUFFERPROC( uint framebuffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDFRAMEBUFFERPROC( uint target, uint framebuffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETEFRAMEBUFFERSPROC( int n, ref uint framebuffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENFRAMEBUFFERSPROC( int n, ref uint framebuffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLCHECKFRAMEBUFFERSTATUSPROC( uint target );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERTEXTURE1DPROC( uint target, uint attachment, uint textarget, uint texture, int level );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERTEXTURE2DPROC( uint target, uint attachment, uint textarget, uint texture, int level );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERTEXTURE3DPROC( uint target, uint attachment, uint textarget, uint texture, int level, int zoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERRENDERBUFFERPROC( uint target, uint attachment, uint renderbuffertarget, uint renderbuffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC( uint target, uint attachment, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENERATEMIPMAPPROC( uint target );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLITFRAMEBUFFERPROC( int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, uint mask, uint filter );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC( uint target, int samples, uint internalformat, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERTEXTURELAYERPROC( uint target, uint attachment, uint texture, int level, int layer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLMAPBUFFERRANGEPROC( uint target, int offset, int length, uint access );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFLUSHMAPPEDBUFFERRANGEPROC( uint target, int offset, int length );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDVERTEXARRAYPROC( uint array );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETEVERTEXARRAYSPROC( int n, ref uint arrays );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENVERTEXARRAYSPROC( int n, ref uint arrays );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISVERTEXARRAYPROC( uint array );
 		#endregion
 
@@ -3702,29 +3702,29 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWARRAYSINSTANCEDPROC( uint mode, int first, int count, int instancecount );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSINSTANCEDPROC( uint mode, int count, uint type, IntPtr indices, int instancecount );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXBUFFERPROC( uint target, uint internalformat, uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPRIMITIVERESTARTINDEXPROC( uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYBUFFERSUBDATAPROC( uint readTarget, uint writeTarget, int readOffset, int writeOffset, int size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETUNIFORMINDICESPROC( uint program, int uniformCount, IntPtr uniformNames, ref uint uniformIndices );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEUNIFORMSIVPROC( uint program, int uniformCount, ref uint uniformIndices, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEUNIFORMNAMEPROC( uint program, uint uniformIndex, int bufSize, ref int length, IntPtr uniformName );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGETUNIFORMBLOCKINDEXPROC( uint program, [In] [MarshalAs( UnmanagedType.LPStr )] string uniformBlockName );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEUNIFORMBLOCKIVPROC( uint program, uint uniformBlockIndex, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC( uint program, uint uniformBlockIndex, int bufSize, ref int length, IntPtr uniformBlockName );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMBLOCKBINDINGPROC( uint program, uint uniformBlockIndex, uint uniformBlockBinding );
 		#endregion
 
@@ -3814,43 +3814,43 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSBASEVERTEXPROC( uint mode, int count, uint type, IntPtr indices, int basevertex );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC( uint mode, uint start, uint end, int count, uint type, IntPtr indices, int basevertex );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC( uint mode, int count, uint type, IntPtr indices, int instancecount, int basevertex );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC( uint mode, ref int count, uint type, IntPtr indices, int drawcount, ref int basevertex );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROVOKINGVERTEXPROC( uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLFENCESYNCPROC( uint condition, uint flags );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISSYNCPROC( IntPtr sync );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETESYNCPROC( IntPtr sync );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLCLIENTWAITSYNCPROC( IntPtr sync, uint flags, uint timeout );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLWAITSYNCPROC( IntPtr sync, uint flags, uint timeout );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETINTEGER64VPROC( uint pname, ref int data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSYNCIVPROC( IntPtr sync, uint pname, int bufSize, ref int length, ref int values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETINTEGER64I_VPROC( uint target, uint index, ref int data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETBUFFERPARAMETERI64VPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERTEXTUREPROC( uint target, uint attachment, uint texture, int level );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXIMAGE2DMULTISAMPLEPROC( uint target, int samples, uint internalformat, int width, int height, byte fixedsamplelocations );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXIMAGE3DMULTISAMPLEPROC( uint target, int samples, uint internalformat, int width, int height, int depth, byte fixedsamplelocations );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETMULTISAMPLEFVPROC( uint pname, uint index, ref float val );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLEMASKIPROC( uint maskNumber, uint mask );
 		#endregion
 
@@ -3898,61 +3898,61 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDFRAGDATALOCATIONINDEXEDPROC( uint program, uint colorNumber, uint index, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETFRAGDATAINDEXPROC( uint program, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENSAMPLERSPROC( int count, ref uint samplers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETESAMPLERSPROC( int count, ref uint samplers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISSAMPLERPROC( uint sampler );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDSAMPLERPROC( uint unit, uint sampler );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLERPARAMETERIPROC( uint sampler, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLERPARAMETERIVPROC( uint sampler, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLERPARAMETERFPROC( uint sampler, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLERPARAMETERFVPROC( uint sampler, uint pname, ref float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLERPARAMETERIIVPROC( uint sampler, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSAMPLERPARAMETERIUIVPROC( uint sampler, uint pname, ref uint param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSAMPLERPARAMETERIVPROC( uint sampler, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSAMPLERPARAMETERIIVPROC( uint sampler, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSAMPLERPARAMETERFVPROC( uint sampler, uint pname, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSAMPLERPARAMETERIUIVPROC( uint sampler, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLQUERYCOUNTERPROC( uint id, uint target );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYOBJECTI64VPROC( uint id, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYOBJECTUI64VPROC( uint id, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBDIVISORPROC( uint index, uint divisor );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP1UIPROC( uint index, uint type, byte normalized, uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP1UIVPROC( uint index, uint type, byte normalized, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP2UIPROC( uint index, uint type, byte normalized, uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP2UIVPROC( uint index, uint type, byte normalized, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP3UIPROC( uint index, uint type, byte normalized, uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP3UIVPROC( uint index, uint type, byte normalized, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP4UIPROC( uint index, uint type, byte normalized, uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBP4UIVPROC( uint index, uint type, byte normalized, ref uint value );
 		#endregion
 
@@ -4070,97 +4070,97 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMINSAMPLESHADINGPROC( float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDEQUATIONIPROC( uint buf, uint mode );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDEQUATIONSEPARATEIPROC( uint buf, uint modeRGB, uint modeAlpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDFUNCIPROC( uint buf, uint src, uint dst );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLENDFUNCSEPARATEIPROC( uint buf, uint srcRGB, uint dstRGB, uint srcAlpha, uint dstAlpha );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWARRAYSINDIRECTPROC( uint mode, IntPtr indirect );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSINDIRECTPROC( uint mode, uint type, IntPtr indirect );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1DPROC( int location, double x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2DPROC( int location, double x, double y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3DPROC( int location, double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4DPROC( int location, double x, double y, double z, double w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM1DVPROC( int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM2DVPROC( int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM3DVPROC( int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORM4DVPROC( int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX2DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX3DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX4DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX2X3DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX2X4DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX3X2DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX3X4DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX4X2DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMMATRIX4X3DVPROC( int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETUNIFORMDVPROC( uint program, int location, ref double parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETSUBROUTINEUNIFORMLOCATIONPROC( uint program, uint shadertype, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGETSUBROUTINEINDEXPROC( uint program, uint shadertype, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVESUBROUTINEUNIFORMIVPROC( uint program, uint shadertype, uint index, uint pname, ref int values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC( uint program, uint shadertype, uint index, int bufsize, ref int length, IntPtr name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVESUBROUTINENAMEPROC( uint program, uint shadertype, uint index, int bufsize, ref int length, IntPtr name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUNIFORMSUBROUTINESUIVPROC( uint shadertype, int count, ref uint indices );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETUNIFORMSUBROUTINEUIVPROC( uint shadertype, int location, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMSTAGEIVPROC( uint program, uint shadertype, uint pname, ref int values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPATCHPARAMETERIPROC( uint pname, int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPATCHPARAMETERFVPROC( uint pname, ref float values );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDTRANSFORMFEEDBACKPROC( uint target, uint id );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETETRANSFORMFEEDBACKSPROC( int n, ref uint ids );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENTRANSFORMFEEDBACKSPROC( int n, ref uint ids );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISTRANSFORMFEEDBACKPROC( uint id );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPAUSETRANSFORMFEEDBACKPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRESUMETRANSFORMFEEDBACKPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWTRANSFORMFEEDBACKPROC( uint mode, uint id );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC( uint mode, uint id, uint stream );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBEGINQUERYINDEXEDPROC( uint target, uint index, uint id );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENDQUERYINDEXEDPROC( uint target, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYINDEXEDIVPROC( uint target, uint index, uint pname, ref int parameters );
 		#endregion
 
@@ -4254,181 +4254,181 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLRELEASESHADERCOMPILERPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSHADERBINARYPROC( int count, ref uint shaders, uint binaryformat, IntPtr binary, int length );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETSHADERPRECISIONFORMATPROC( uint shadertype, uint precisiontype, ref int range, ref int precision );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEPTHRANGEFPROC( float n, float f );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARDEPTHFPROC( float d );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMBINARYPROC( uint program, int bufSize, ref int length, ref uint binaryFormat, IntPtr binary );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMBINARYPROC( uint program, uint binaryFormat, IntPtr binary, int length );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMPARAMETERIPROC( uint program, uint pname, int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLUSEPROGRAMSTAGESPROC( uint pipeline, uint stages, uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLACTIVESHADERPROGRAMPROC( uint pipeline, uint program );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLCREATESHADERPROGRAMVPROC( uint type, int count, IntPtr strings );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDPROGRAMPIPELINEPROC( uint pipeline );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDELETEPROGRAMPIPELINESPROC( int n, ref uint pipelines );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENPROGRAMPIPELINESPROC( int n, ref uint pipelines );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLISPROGRAMPIPELINEPROC( uint pipeline );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMPIPELINEIVPROC( uint pipeline, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1IPROC( uint program, int location, int v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1IVPROC( uint program, int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1FPROC( uint program, int location, float v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1FVPROC( uint program, int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1DPROC( uint program, int location, double v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1DVPROC( uint program, int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1UIPROC( uint program, int location, uint v0 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM1UIVPROC( uint program, int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2IPROC( uint program, int location, int v0, int v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2IVPROC( uint program, int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2FPROC( uint program, int location, float v0, float v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2FVPROC( uint program, int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2DPROC( uint program, int location, double v0, double v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2DVPROC( uint program, int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2UIPROC( uint program, int location, uint v0, uint v1 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM2UIVPROC( uint program, int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3IPROC( uint program, int location, int v0, int v1, int v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3IVPROC( uint program, int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3FPROC( uint program, int location, float v0, float v1, float v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3FVPROC( uint program, int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3DPROC( uint program, int location, double v0, double v1, double v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3DVPROC( uint program, int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3UIPROC( uint program, int location, uint v0, uint v1, uint v2 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM3UIVPROC( uint program, int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4IPROC( uint program, int location, int v0, int v1, int v2, int v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4IVPROC( uint program, int location, int count, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4FPROC( uint program, int location, float v0, float v1, float v2, float v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4FVPROC( uint program, int location, int count, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4DPROC( uint program, int location, double v0, double v1, double v2, double v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4DVPROC( uint program, int location, int count, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4UIPROC( uint program, int location, uint v0, uint v1, uint v2, uint v3 );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORM4UIVPROC( uint program, int location, int count, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX2FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX3FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX4FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX2DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX3DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX4DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX2X3FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX3X2FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX2X4FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX4X2FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX3X4FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX4X3FVPROC( uint program, int location, int count, byte transpose, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX2X3DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX3X2DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX2X4DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX4X2DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX3X4DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPROGRAMUNIFORMMATRIX4X3DVPROC( uint program, int location, int count, byte transpose, ref double value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVALIDATEPROGRAMPIPELINEPROC( uint pipeline );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMPIPELINEINFOLOGPROC( uint pipeline, int bufSize, ref int length, IntPtr infoLog );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL1DPROC( uint index, double x );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL2DPROC( uint index, double x, double y );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL3DPROC( uint index, double x, double y, double z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL4DPROC( uint index, double x, double y, double z, double w );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL1DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL2DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL3DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBL4DVPROC( uint index, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBLPOINTERPROC( uint index, int size, uint type, int stride, IntPtr pointer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXATTRIBLDVPROC( uint index, uint pname, ref double parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVIEWPORTARRAYVPROC( uint first, int count, ref float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVIEWPORTINDEXEDFPROC( uint index, float x, float y, float w, float h );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVIEWPORTINDEXEDFVPROC( uint index, ref float v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSCISSORARRAYVPROC( uint first, int count, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSCISSORINDEXEDPROC( uint index, int left, int bottom, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSCISSORINDEXEDVPROC( uint index, ref int v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEPTHRANGEARRAYVPROC( uint first, int count, ref double v );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEPTHRANGEINDEXEDPROC( uint index, double n, double f );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETFLOATI_VPROC( uint target, uint index, ref float data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETDOUBLEI_VPROC( uint target, uint index, ref double data );
 		#endregion
 
@@ -4641,29 +4641,29 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC( uint mode, int first, int count, int instancecount, uint baseinstance );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC( uint mode, int count, uint type, IntPtr indices, int instancecount, uint baseinstance );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC( uint mode, int count, uint type, IntPtr indices, int instancecount, int basevertex, uint baseinstance );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETINTERNALFORMATIVPROC( uint target, uint internalformat, uint pname, int bufSize, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC( uint program, uint bufferIndex, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDIMAGETEXTUREPROC( uint unit, uint texture, int level, byte layered, int layer, uint access, uint format );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMEMORYBARRIERPROC( uint barriers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSTORAGE1DPROC( uint target, int levels, uint internalformat, int width );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSTORAGE2DPROC( uint target, int levels, uint internalformat, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSTORAGE3DPROC( uint target, int levels, uint internalformat, int width, int height, int depth );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC( uint mode, uint id, int instancecount );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC( uint mode, uint id, uint stream, int instancecount );
 		#endregion
 
@@ -4948,91 +4948,91 @@ namespace CSGL
 		#region Delegates
 		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
 		public delegate void GLDEBUGPROC( uint source, uint type, uint id, uint severity, int length, [In] [MarshalAs( UnmanagedType.LPStr )] string message, IntPtr userParam );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARBUFFERDATAPROC( uint target, uint internalformat, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARBUFFERSUBDATAPROC( uint target, uint internalformat, int offset, int size, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISPATCHCOMPUTEPROC( uint num_groups_x, uint num_groups_y, uint num_groups_z );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISPATCHCOMPUTEINDIRECTPROC( int indirect );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYIMAGESUBDATAPROC( uint srcName, uint srcTarget, int srcLevel, int srcX, int srcY, int srcZ, uint dstName, uint dstTarget, int dstLevel, int dstX, int dstY, int dstZ, int srcWidth, int srcHeight, int srcDepth );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFRAMEBUFFERPARAMETERIPROC( uint target, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETFRAMEBUFFERPARAMETERIVPROC( uint target, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETINTERNALFORMATI64VPROC( uint target, uint internalformat, uint pname, int bufSize, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATETEXSUBIMAGEPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATETEXIMAGEPROC( uint texture, int level );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATEBUFFERSUBDATAPROC( uint buffer, int offset, int length );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATEBUFFERDATAPROC( uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATEFRAMEBUFFERPROC( uint target, int numAttachments, ref uint attachments );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATESUBFRAMEBUFFERPROC( uint target, int numAttachments, ref uint attachments, int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTIDRAWARRAYSINDIRECTPROC( uint mode, IntPtr indirect, int drawcount, int stride );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMULTIDRAWELEMENTSINDIRECTPROC( uint mode, uint type, IntPtr indirect, int drawcount, int stride );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMINTERFACEIVPROC( uint program, uint programInterface, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGETPROGRAMRESOURCEINDEXPROC( uint program, uint programInterface, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMRESOURCENAMEPROC( uint program, uint programInterface, uint index, int bufSize, ref int length, IntPtr name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETPROGRAMRESOURCEIVPROC( uint program, uint programInterface, uint index, int propCount, ref uint props, int bufSize, ref int length, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETPROGRAMRESOURCELOCATIONPROC( uint program, uint programInterface, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate int PFNGLGETPROGRAMRESOURCELOCATIONINDEXPROC( uint program, uint programInterface, [In] [MarshalAs( UnmanagedType.LPStr )] string name );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLSHADERSTORAGEBLOCKBINDINGPROC( uint program, uint storageBlockIndex, uint storageBlockBinding );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXBUFFERRANGEPROC( uint target, uint internalformat, uint buffer, int offset, int size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSTORAGE2DMULTISAMPLEPROC( uint target, int samples, uint internalformat, int width, int height, byte fixedsamplelocations );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXSTORAGE3DMULTISAMPLEPROC( uint target, int samples, uint internalformat, int width, int height, int depth, byte fixedsamplelocations );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREVIEWPROC( uint texture, uint target, uint origtexture, uint internalformat, uint minlevel, uint numlevels, uint minlayer, uint numlayers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDVERTEXBUFFERPROC( uint bindingindex, uint buffer, int offset, int stride );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBFORMATPROC( uint attribindex, int size, uint type, byte normalized, uint relativeoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBIFORMATPROC( uint attribindex, int size, uint type, uint relativeoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBLFORMATPROC( uint attribindex, int size, uint type, uint relativeoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXATTRIBBINDINGPROC( uint attribindex, uint bindingindex );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXBINDINGDIVISORPROC( uint bindingindex, uint divisor );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEBUGMESSAGECONTROLPROC( uint source, uint type, uint severity, int count, ref uint ids, byte enabled );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEBUGMESSAGEINSERTPROC( uint source, uint type, uint id, uint severity, int length, [In] [MarshalAs( UnmanagedType.LPStr )] string buf );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDEBUGMESSAGECALLBACKPROC( GLDEBUGPROC callback, IntPtr userParam );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGETDEBUGMESSAGELOGPROC( uint count, int bufSize, ref uint sources, ref uint types, ref uint ids, ref uint severities, ref int lengths, IntPtr messageLog );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPUSHDEBUGGROUPPROC( uint source, uint id, int length, [In] [MarshalAs( UnmanagedType.LPStr )] string message );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLPOPDEBUGGROUPPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLOBJECTLABELPROC( uint identifier, uint name, int length, [In] [MarshalAs( UnmanagedType.LPStr )] string label );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETOBJECTLABELPROC( uint identifier, uint name, int bufSize, ref int length, IntPtr label );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLOBJECTPTRLABELPROC( IntPtr ptr, int length, [In] [MarshalAs( UnmanagedType.LPStr )] string label );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETOBJECTPTRLABELPROC( IntPtr ptr, int bufSize, ref int length, IntPtr label );
 		#endregion
 
@@ -5107,23 +5107,23 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBUFFERSTORAGEPROC( uint target, int size, IntPtr data, uint flags );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARTEXIMAGEPROC( uint texture, int level, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARTEXSUBIMAGEPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDBUFFERSBASEPROC( uint target, uint first, int count, ref uint buffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDBUFFERSRANGEPROC( uint target, uint first, int count, ref uint buffers, ref int offsets, ref int sizes );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDTEXTURESPROC( uint first, int count, ref uint textures );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDSAMPLERSPROC( uint first, int count, ref uint samplers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDIMAGETEXTURESPROC( uint first, int count, ref uint textures );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDVERTEXBUFFERSPROC( uint first, int count, ref uint buffers, ref int offsets, ref int strides );
 		#endregion
 
@@ -5168,225 +5168,225 @@ namespace CSGL
 		#endregion
 
 		#region Delegates
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLIPCONTROLPROC( uint origin, uint depth );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATETRANSFORMFEEDBACKSPROC( int n, ref uint ids );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTRANSFORMFEEDBACKBUFFERBASEPROC( uint xfb, uint index, uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC( uint xfb, uint index, uint buffer, int offset, int size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTRANSFORMFEEDBACKIVPROC( uint xfb, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTRANSFORMFEEDBACKI_VPROC( uint xfb, uint pname, uint index, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTRANSFORMFEEDBACKI64_VPROC( uint xfb, uint pname, uint index, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATEBUFFERSPROC( int n, ref uint buffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDBUFFERSTORAGEPROC( uint buffer, int size, IntPtr data, uint flags );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDBUFFERDATAPROC( uint buffer, int size, IntPtr data, uint usage );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDBUFFERSUBDATAPROC( uint buffer, int offset, int size, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYNAMEDBUFFERSUBDATAPROC( uint readBuffer, uint writeBuffer, int readOffset, int writeOffset, int size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARNAMEDBUFFERDATAPROC( uint buffer, uint internalformat, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARNAMEDBUFFERSUBDATAPROC( uint buffer, uint internalformat, int offset, int size, uint format, uint type, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLMAPNAMEDBUFFERPROC( uint buffer, uint access );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate IntPtr PFNGLMAPNAMEDBUFFERRANGEPROC( uint buffer, int offset, int length, uint access );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate byte PFNGLUNMAPNAMEDBUFFERPROC( uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC( uint buffer, int offset, int length );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDBUFFERPARAMETERIVPROC( uint buffer, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDBUFFERPARAMETERI64VPROC( uint buffer, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDBUFFERPOINTERVPROC( uint buffer, uint pname, ref IntPtr parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDBUFFERSUBDATAPROC( uint buffer, int offset, int size, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATEFRAMEBUFFERSPROC( int n, ref uint framebuffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC( uint framebuffer, uint attachment, uint renderbuffertarget, uint renderbuffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERPARAMETERIPROC( uint framebuffer, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERTEXTUREPROC( uint framebuffer, uint attachment, uint texture, int level );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC( uint framebuffer, uint attachment, uint texture, int level, int layer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC( uint framebuffer, uint buf );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC( uint framebuffer, int n, ref uint bufs );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDFRAMEBUFFERREADBUFFERPROC( uint framebuffer, uint src );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC( uint framebuffer, int numAttachments, ref uint attachments );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC( uint framebuffer, int numAttachments, ref uint attachments, int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARNAMEDFRAMEBUFFERIVPROC( uint framebuffer, uint buffer, int drawbuffer, ref int value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARNAMEDFRAMEBUFFERUIVPROC( uint framebuffer, uint buffer, int drawbuffer, ref uint value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARNAMEDFRAMEBUFFERFVPROC( uint framebuffer, uint buffer, int drawbuffer, ref float value );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCLEARNAMEDFRAMEBUFFERFIPROC( uint framebuffer, uint buffer, int drawbuffer, float depth, int stencil );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBLITNAMEDFRAMEBUFFERPROC( uint readFramebuffer, uint drawFramebuffer, int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, uint mask, uint filter );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC( uint framebuffer, uint target );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC( uint framebuffer, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC( uint framebuffer, uint attachment, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATERENDERBUFFERSPROC( int n, ref uint renderbuffers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDRENDERBUFFERSTORAGEPROC( uint renderbuffer, uint internalformat, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC( uint renderbuffer, int samples, uint internalformat, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC( uint renderbuffer, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATETEXTURESPROC( uint target, int n, ref uint textures );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREBUFFERPROC( uint texture, uint internalformat, uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREBUFFERRANGEPROC( uint texture, uint internalformat, uint buffer, int offset, int size );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESTORAGE1DPROC( uint texture, int levels, uint internalformat, int width );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESTORAGE2DPROC( uint texture, int levels, uint internalformat, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESTORAGE3DPROC( uint texture, int levels, uint internalformat, int width, int height, int depth );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESTORAGE2DMULTISAMPLEPROC( uint texture, int samples, uint internalformat, int width, int height, byte fixedsamplelocations );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESTORAGE3DMULTISAMPLEPROC( uint texture, int samples, uint internalformat, int width, int height, int depth, byte fixedsamplelocations );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESUBIMAGE1DPROC( uint texture, int level, int xoffset, int width, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESUBIMAGE2DPROC( uint texture, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTURESUBIMAGE3DPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC( uint texture, int level, int xoffset, int width, uint format, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC( uint texture, int level, int xoffset, int yoffset, int width, int height, uint format, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, int imageSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXTURESUBIMAGE1DPROC( uint texture, int level, int xoffset, int x, int y, int width );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXTURESUBIMAGE2DPROC( uint texture, int level, int xoffset, int yoffset, int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCOPYTEXTURESUBIMAGE3DPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREPARAMETERFPROC( uint texture, uint pname, float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREPARAMETERFVPROC( uint texture, uint pname, ref float param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREPARAMETERIPROC( uint texture, uint pname, int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREPARAMETERIIVPROC( uint texture, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREPARAMETERIUIVPROC( uint texture, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREPARAMETERIVPROC( uint texture, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGENERATETEXTUREMIPMAPPROC( uint texture );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLBINDTEXTUREUNITPROC( uint unit, uint texture );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTUREIMAGEPROC( uint texture, int level, uint format, uint type, int bufSize, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCOMPRESSEDTEXTUREIMAGEPROC( uint texture, int level, int bufSize, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTURELEVELPARAMETERFVPROC( uint texture, int level, uint pname, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTURELEVELPARAMETERIVPROC( uint texture, int level, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTUREPARAMETERFVPROC( uint texture, uint pname, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTUREPARAMETERIIVPROC( uint texture, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTUREPARAMETERIUIVPROC( uint texture, uint pname, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTUREPARAMETERIVPROC( uint texture, uint pname, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATEVERTEXARRAYSPROC( int n, ref uint arrays );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLDISABLEVERTEXARRAYATTRIBPROC( uint vaobj, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLENABLEVERTEXARRAYATTRIBPROC( uint vaobj, uint index );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYELEMENTBUFFERPROC( uint vaobj, uint buffer );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYVERTEXBUFFERPROC( uint vaobj, uint bindingindex, uint buffer, int offset, int stride );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYVERTEXBUFFERSPROC( uint vaobj, uint first, int count, ref uint buffers, ref int offsets, ref int strides );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYATTRIBBINDINGPROC( uint vaobj, uint attribindex, uint bindingindex );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYATTRIBFORMATPROC( uint vaobj, uint attribindex, int size, uint type, byte normalized, uint relativeoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYATTRIBIFORMATPROC( uint vaobj, uint attribindex, int size, uint type, uint relativeoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYATTRIBLFORMATPROC( uint vaobj, uint attribindex, int size, uint type, uint relativeoffset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLVERTEXARRAYBINDINGDIVISORPROC( uint vaobj, uint bindingindex, uint divisor );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXARRAYIVPROC( uint vaobj, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXARRAYINDEXEDIVPROC( uint vaobj, uint index, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETVERTEXARRAYINDEXED64IVPROC( uint vaobj, uint index, uint pname, ref int param );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATESAMPLERSPROC( int n, ref uint samplers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATEPROGRAMPIPELINESPROC( int n, ref uint pipelines );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLCREATEQUERIESPROC( uint target, int n, ref uint ids );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYBUFFEROBJECTI64VPROC( uint id, uint buffer, uint pname, int offset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYBUFFEROBJECTIVPROC( uint id, uint buffer, uint pname, int offset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYBUFFEROBJECTUI64VPROC( uint id, uint buffer, uint pname, int offset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETQUERYBUFFEROBJECTUIVPROC( uint id, uint buffer, uint pname, int offset );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLMEMORYBARRIERBYREGIONPROC( uint barriers );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETTEXTURESUBIMAGEPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, int bufSize, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC( uint texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, int bufSize, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate uint PFNGLGETGRAPHICSRESETSTATUSPROC();
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNCOMPRESSEDTEXIMAGEPROC( uint target, int lod, int bufSize, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNTEXIMAGEPROC( uint target, int level, uint format, uint type, int bufSize, IntPtr pixels );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNUNIFORMDVPROC( uint program, int location, int bufSize, ref double parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNUNIFORMFVPROC( uint program, int location, int bufSize, ref float parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNUNIFORMIVPROC( uint program, int location, int bufSize, ref int parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLGETNUNIFORMUIVPROC( uint program, int location, int bufSize, ref uint parameters );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLREADNPIXELSPROC( int x, int y, int width, int height, uint format, uint type, int bufSize, IntPtr data );
-		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		[UnmanagedFunctionPointer( CallingConvention.StdCall )]
 		public delegate void PFNGLTEXTUREBARRIERPROC();
 		#endregion
 
