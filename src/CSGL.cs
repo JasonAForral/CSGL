@@ -387,6 +387,10 @@ namespace CSGL
 		public const int GLFW_AUTO_ICONIFY = 131078;
 		public const int GLFW_FLOATING = 131079;
 		public const int GLFW_MAXIMIZED = 131080;
+		public const int GLFW_CENTER_CURSOR = 0x00020009;
+		public const int GLFW_TRANSPARENT_FRAMEBUFFER = 0x0002000A;
+		public const int GLFW_HOVERED = 0x0002000B;
+		public const int GLFW_FOCUS_ON_SHOW = 0x0002000C;
 		public const int GLFW_RED_BITS = 135169;
 		public const int GLFW_GREEN_BITS = 135170;
 		public const int GLFW_BLUE_BITS = 135171;
@@ -414,6 +418,12 @@ namespace CSGL
 		public const int GLFW_CONTEXT_RELEASE_BEHAVIOR = 139273;
 		public const int GLFW_CONTEXT_NO_ERROR = 139274;
 		public const int GLFW_CONTEXT_CREATION_API = 139275;
+		public const int GLFW_SCALE_TO_MONITOR = 0x0002200C;
+		public const int GLFW_COCOA_RETINA_FRAMEBUFFER = 0x00023001;
+		public const int GLFW_COCOA_FRAME_NAME = 0x00023002;
+		public const int GLFW_COCOA_GRAPHICS_SWITCHING = 0x00023003;
+		public const int GLFW_X11_CLASS_NAME = 0x00024001;
+		public const int GLFW_X11_INSTANCE_NAME = 0x00024001;
 		public const int GLFW_NO_API = 0;
 		public const int GLFW_OPENGL_API = 196609;
 		public const int GLFW_OPENGL_ES_API = 196610;
@@ -426,6 +436,8 @@ namespace CSGL
 		public const int GLFW_CURSOR = 208897;
 		public const int GLFW_STICKY_KEYS = 208898;
 		public const int GLFW_STICKY_MOUSE_BUTTONS = 208899;
+		public const int GLFW_LOCK_KEY_MODS = 0x00033004;
+		public const int GLFW_RAW_MOUSE_MOTION = 0x00033005;
 		public const int GLFW_CURSOR_NORMAL = 212993;
 		public const int GLFW_CURSOR_HIDDEN = 212994;
 		public const int GLFW_CURSOR_DISABLED = 212995;
@@ -434,6 +446,7 @@ namespace CSGL
 		public const int GLFW_RELEASE_BEHAVIOR_NONE = 217090;
 		public const int GLFW_NATIVE_CONTEXT_API = 221185;
 		public const int GLFW_EGL_CONTEXT_API = 221186;
+		public const int GLFW_OSMESA_CONTEXT_API = 0x00036003;
 		public const int GLFW_ARROW_CURSOR = 221185;
 		public const int GLFW_IBEAM_CURSOR = 221186;
 		public const int GLFW_CROSSHAIR_CURSOR = 221187;
@@ -442,6 +455,9 @@ namespace CSGL
 		public const int GLFW_VRESIZE_CURSOR = 221190;
 		public const int GLFW_CONNECTED = 262145;
 		public const int GLFW_DISCONNECTED = 262146;
+		public const int GLFW_JOYSTICK_HAT_BUTTONS = 0x00050001;
+		public const int GLFW_COCOA_CHDIR_RESOURCES = 0x00051001;
+		public const int GLFW_COCOA_MENUBAR = 0x00051002;
 		public const int GLFW_DONT_CARE = -1;
 		#endregion
 
@@ -669,6 +685,8 @@ namespace CSGL
 		public delegate int PFNGLFWVULKANSUPPORTEDPROC();
 		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
 		public delegate IntPtr PFNGLFWGETREQUIREDINSTANCEEXTENSIONSPROC( ref uint count );
+		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		public delegate int PFNGLFWGETERRORPROC( out IntPtr description );
 		#endregion
 
 		#region Structures
